@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 def get_images_and_counts(X, Y, count_data):
     """
     get the images, their labels, and count them. 
+    credit to: https://gist.github.com/autojazari
     """
     images, labels, counts = [], [], []
     for label, count in count_data:
@@ -106,6 +107,10 @@ class DataSet:
 
 # Visualize Learning Curves
 def plot_learning_curves(training_losses, training_accuracies, dev_losses, dev_accuracies):
+    '''
+    Plot the accuracty-loss curves resulted from the training. 
+    credit to: https://github.com/upul/traffic-signs/blob/master/Traffic_Signs_Recognition.ipynb
+    '''
     import seaborn as sbs;
     sbs.set()
     epochs = np.arange(len(training_losses))
@@ -175,6 +180,7 @@ def transform_image(img, ang_range, shear_range, trans_range):
 def display_augmented_images(image_dataset, augmented_data, n_rows):
     '''
     Simple utility function for displaying augmented images.
+    credit to: https://github.com/upul/traffic-signs/blob/master/Traffic_Signs_Recognition.ipynb
     '''
     plt.figure(figsize=(5,7.5))
     selected_classes = np.random.randint(0, 44, size=n_rows)
@@ -203,9 +209,8 @@ def display_augmented_images(image_dataset, augmented_data, n_rows):
     
     
 # Process new images and display them:
-TEST_IMAGES = './new_images_test/'
 def resize_image(image_file):
-    image = plt.imread(TEST_IMAGES + image_file)
+    image = plt.imread(NEW_IMAGES_FOLDER + image_file)
     return scipy.misc.imresize(image, (32, 32))
 
 def display_new_images(imgs_data):
@@ -220,8 +225,12 @@ def display_new_images(imgs_data):
     plt.show() 
 
 
-# Print results when predicting with new data    
+# Print results when predicting with new data 
 def print_result(ground_truth, top_k_prob, top_k_indices):
+    '''
+    Print the predictions of the new images and show a bar chart with the softmax probabilities.   
+    credit to: https://github.com/upul/traffic-signs/blob/master/Traffic_Signs_Recognition.ipynb
+    '''
     class_names = pd.read_csv('./signnames.csv')['SignName'].values
     index = 0
     img_index = 0
