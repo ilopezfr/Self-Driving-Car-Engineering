@@ -5,12 +5,12 @@ This is a short walkthrough of the approach used to solve the problem of Udacity
 The goal of the project is to use the simulator to drive the car around a track, collect data and train it on neural network so that the car can eventually predict the angle to steer by itself, and complete a drive on the simulator without crashing.
 
 Steps of this project:
-- 1. Data Collection using the simulator
-- 2. Preprocessing the data
-- 3. Build Neural Network
-- 4. Train and validate the model on the GPU
-- 5. Test the model on the autonomous model using the simulator.
-- 6. Iterate.
+- Data Collection using the simulator
+- Preprocessing the data
+- Build Neural Network
+- Train and validate the model on the GPU
+- Test the model on the autonomous model using the simulator.
+- Iterate.
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
