@@ -15,8 +15,7 @@ Steps of this project:
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
 Using Udacity's provided simulator and my drive.py file, the car can be driven autonomously around the track by executing:
-```sh
-python drive.py model_v6.4.h5 ```
+`ssh python drive.py model_v6.4.h5 `
 
 ## Data Collection
 I followed an iterative approach, starting with the collecting minimum data--one lap driving, in this case--, building a simple network, testing it on the simulator, measuring the results and then iterating. 
