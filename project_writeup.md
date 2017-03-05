@@ -22,6 +22,11 @@ Using Udacity's provided simulator and my drive.py file, the car can be driven a
 [//]: # (Image References)
 
 [image1]: ./images/camera_images.png
+[image2]: ./images/cropped_image.png
+[image3]: ./images/dirt_curve.gif
+[image4]: ./images/recovery.gif
+[image5]: ./images/model_loss.png
+
 
 ## Data Collection
 I followed an iterative approach, starting with the collecting minimum data--one lap driving, in this case--, building a simple network, testing it on the simulator, measuring the results and then iterating. 
@@ -38,8 +43,8 @@ By simulating this type of situations, I collected what we call "recovery data".
 	- Curve prior to bridge.
 	- Driving accross bridge.
 	- Every sharp curve.
-	- Sharp curve where there's no road delimiter but dirt.
-
+	- Sharp curve where there's no road delimiter but dirt. See below:
+![alt text][image3]
 
 In addition, I augmented the data during the training phase, which is explained in the next section. 
 
@@ -120,7 +125,6 @@ I improved the architecture by replicating LeNet network:
 
 I chose Adam optimizer, as is the to-go optimizer for these types of problems, and MSE as the loss function, as we are predicting a a numeric value.
 
-
 I trained the model, which seemed to have a smaller loss and not overfitting. Then added the model in the simulator but it still crashed in a few seconds. I noticed that the car tended to steer to the left and eventually crash.
 This was because the track is not clock-wise and the dataset I was using only showed the car pooling to the left.
 
@@ -136,14 +140,17 @@ I trained and tested it again on the simulator and the car was able to drive a b
 **Step 4**
 To fix this, I took a few approaches:
 - Add recovery data: I generated more train data by recording myself driving close to the side of the road and quickly turning back on to the middle of the road. I collected some data using this strategy while driving on particular parts of the track like: entering and exiting a sharp curve, and crossing the bridge.
+![alt text][image4] 
 - Leverage Left and Right images. I took the images collected from the left and right cameras, and applied a correction factor to the measurements so that I could use them as center images. I tested different values for the correction factor, from 0.2 to 0.1. I got best results with 0.12.
 - Cropping the images: removed 70px from the top and 25px from the bottom portions of the images, as they don't contain useful information. This way, the model could train faster and focus on the portion of the image that is relevant for predicting a steering angle. To do so, I added Cropping2D Layer to the network. Adding this to the network instead of outside the model is more efficient as it takes advantage of the parallelization on the GPU. 
+![alt text][image2]
 
 **Step 5**
 Now it was time to improved the network to make it more robust.
 I took the network architecture used on NVIDIA's paper and adopted to my data.
 
 At this point, the model improved noticeably and was able to drive autonomously an entire lap without crashing. On the train phase, both the train loss and validation, although the gap between both had increased. Clearly a sign of overfitting. To confirm this on the simulator, driving on autonomous mode the car was still zigzagging a little bit n some areas where it was supposed to drive straight.
+![alt text][image5]
 
 **Step 6**
 To prevent the overfitting, I tested 2 approaches:
