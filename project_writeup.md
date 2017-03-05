@@ -14,11 +14,20 @@ Steps of this project:
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
+The final model was trained on AWS g2.2xlarge EC2 instance for 16 epochs. 
+
 Using Udacity's provided simulator and my drive.py file, the car can be driven autonomously around the track by executing:
 `ssh python drive.py model.h5 `
 
+[//]: # (Image References)
+
+[image1]: ./images/camera_images.png
+
 ## Data Collection
 I followed an iterative approach, starting with the collecting minimum data--one lap driving, in this case--, building a simple network, testing it on the simulator, measuring the results and then iterating. 
+
+Here's an example of the three different types of images captured by the car:
+![alt text][image1]
 
 This way I was able to visualy appreciate what were the situations in which my network wasn't performing well so that I could collect more training data that would teach the network how to behave properly on the situations where it previously failed. 
 
