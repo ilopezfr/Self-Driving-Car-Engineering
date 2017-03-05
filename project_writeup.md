@@ -91,14 +91,16 @@ ________________________________________________________________________________
 
 
 ## Training Strategy and Solution Design Approach:
-1. I drove one lap on the simulator and tested on the data collected a simple Neural Network with just a Lambda layer that normalizes the images (from 0, 255 to 0, 1), a Flatten layer and a Dense layer, and test it on the simulator. This was just to understand how the process works.
+**Step 1** 
+I drove one lap on the simulator and tested on the data collected a simple Neural Network with just a Lambda layer that normalizes the images (from 0, 255 to 0, 1), a Flatten layer and a Dense layer, and test it on the simulator. This was just to understand how the process works.
 
 During the training of the network, the validation loss was going up and down for every epoch, which may indicated that we were overfitting. I decreased the number of epochs from 10 to 5 and it seemed to fix that. However, the loss seem still a bit high. 
 
 When testing it on the simulator, the car crashed after 10 seconds. This didn't surprise me, as I was using very little train data and a simple network.
 
 
-2. I improved the architecture by replicating LeNet network:
+**Step 2** 
+I improved the architecture by replicating LeNet network:
 - 1 Lambda Layer that normalizes the images
 - 1 Conv Layer with 6 5x5 filters and a Relu Activation
 - 1 MaxPolling layer
@@ -113,7 +115,8 @@ I chose Adam optimizer, as is the to-go optimizer for these types of problems, a
 I trained the model, which seemed to have a smaller loss and not overfitting. Then added the model in the simulator but it still crashed in a few seconds. I noticed that the car tended to steer to the left and eventually crash.
 This was because the track is not clock-wise and the dataset I was using only showed the car pooling to the left.
 
-3. In order to fix this issue, I applied some of the suggestions from the class:
+**Step 3** 
+In order to fix this issue, I applied some of the suggestions from the class:
 - Augment the data by driving and recording the car going the other way around the track (clockwise).
 - Augment the data by flipping the images.
 
@@ -121,17 +124,20 @@ After adding the code on the model to mirror the images, I was able to augment t
 
 I trained and tested it again on the simulator and the car was able to drive a bit further for ~20 seconds after crashing. I noticed thought that when the car steered to either left or right, it didn't know how to come back.
 
-4. To fix this, I took a few approaches:
+**Step 4**
+To fix this, I took a few approaches:
 - Add recovery data: I generated more train data by recording myself driving close to the side of the road and quickly turning back on to the middle of the road. I collected some data using this strategy while driving on particular parts of the track like: entering and exiting a sharp curve, and crossing the bridge.
 - Leverage Left and Right images. I took the images collected from the left and right cameras, and applied a correction factor to the measurements so that I could use them as center images. I tested different values for the correction factor, from 0.2 to 0.1. I got best results with 0.12.
 - Cropping the images: removed 70px from the top and 25px from the bottom portions of the images, as they don't contain useful information. This way, the model could train faster and focus on the portion of the image that is relevant for predicting a steering angle. To do so, I added Cropping2D Layer to the network. Adding this to the network instead of outside the model is more efficient as it takes advantage of the parallelization on the GPU. 
 
-5. Now it was time to improved the network to make it more robust.
+**Step 5**
+Now it was time to improved the network to make it more robust.
 I took the network architecture used on NVIDIA's paper and adopted to my data.
 
 At this point, the model improved noticeably and was able to drive autonomously an entire lap without crashing. On the train phase, both the train loss and validation, although the gap between both had increased. Clearly a sign of overfitting. To confirm this on the simulator, driving on autonomous mode the car was still zigzagging a little bit n some areas where it was supposed to drive straight.
 
-6. To prevent the overfitting, I tested 2 approaches:
+**Step 6**
+To prevent the overfitting, I tested 2 approaches:
 - I tuned my Adam optimizer with a small learning rate 0.001. Using a small learning rate allows me to get a generalized result while increasing the number of epochs, from 5 to 20.
 - I added Dropout layers to my network. I tested both SpatialDropout and Dropout and different configurations of the layers. 
 
