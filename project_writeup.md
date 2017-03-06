@@ -28,6 +28,7 @@ Using Udacity's provided simulator and my drive.py file, the car can be driven a
 [image5]: ./images/model_loss.png
 [image6]: ./images/steering_angle1.png
 [image7]: ./images/steering_angle2.png
+[image7]: ./images/autonomous_drive_snap.png
 
 
 ## Data Collection
@@ -167,4 +168,7 @@ To prevent the overfitting, I tested 2 approaches:
 
 I considered using a Generator, as it was suggested. But after better selecting a useful training data and performing the appropriate transformation for better model generalization, the network didn't take too long to train on the AWS EC2 so I decided it wasn't necessary at this point. Given more time to build a network that could drive Circuit 2, I'd definitely use a Generator. 
 
-I ran a few iterations adding and removing dropout layers and tuning the values for the parameters: number of epochs, learning rate and the fraction of the input units to drop (p). The values chosen in the drive.py file are those that performed the best results.
+I ran a few iterations adding and removing dropout layers and tuning the values for the parameters: number of epochs, learning rate and the fraction of the input units to drop (p). The values chosen in the drive.py file are those that performed the best results. 
+
+Here's the video of the car driving on autonomous mode (Click on the image). Enjoy
+![alt text][image8](https://youtu.be/lE0FM_9DVCM)
