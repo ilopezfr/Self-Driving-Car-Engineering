@@ -171,4 +171,4 @@ I considered using a Generator, as it was suggested. But after better selecting 
 I ran a few iterations adding and removing dropout layers and tuning the values for the parameters: number of epochs, learning rate and the fraction of the input units to drop (p). The values chosen in the drive.py file are those that performed the best results. 
 
 Here's the video of the car driving on autonomous mode (Click on the image). Enjoy
-![alt text][image8](https://youtu.be/lE0FM_9DVCM)
+[![alt text][image8]](https://youtu.be/lE0FM_9DVCM)
