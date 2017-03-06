@@ -172,4 +172,4 @@ I ran a few iterations adding and removing dropout layers and tuning the values 
 
 Here's the video of the car driving on autonomous mode (Click on the image). Enjoy! 
 
-[![alt text][image8]](https://youtu.be/lE0FM_9DVCM)
+[![alt text][image8]](https://youtu.be/08e3MYlLAtw)
