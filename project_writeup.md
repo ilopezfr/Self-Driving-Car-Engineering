@@ -28,7 +28,7 @@ Using Udacity's provided simulator and my drive.py file, the car can be driven a
 [image5]: ./images/model_loss.png
 [image6]: ./images/steering_angle1.png
 [image7]: ./images/steering_angle2.png
-[image7]: ./images/autonomous_drive_snap.png
+[image8]: ./images/autonomous_drive_snap.png
 
 
 ## Data Collection
