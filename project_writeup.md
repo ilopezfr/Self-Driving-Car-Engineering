@@ -34,7 +34,7 @@ Using Udacity's provided simulator and my drive.py file, the car can be driven a
 ## Data Collection
 I followed an iterative approach, starting with the collecting minimum data--one lap driving, in this case--, building a simple network, testing it on the simulator, measuring the results and then iterating. 
 
-This way I was able to visualy appreciate what were the situations in which my network wasn't performing well so that I could collect more training data that would teach the network how to behave properly on the situations where it previously failed. 
+This way I was able to visually appreciate what were the situations in which my network wasn't performing well so that I could collect more training data that would teach the network how to behave properly on the situations where it previously failed. 
 
 Here's an example of the three different types of images captured by the car:
 ![alt text][image1]
@@ -42,14 +42,14 @@ Here's an example of the three different types of images captured by the car:
 After only one lap driven, this is how the distribution of steering angle looked like:
 ![alt text][image6]
 
-Clearly sterring=0 have the highest ocurrence. The data is very unbalanced, so we need to focus on collecting more images during curves, when the steering angle is different than 0. Also, because the circuit is counterclock-wise, our distribution of angles will be skewed to the left. 
+Clearly sterring=0 have the highest occurrence. The data is very unbalanced, so we need to focus on collecting more images during curves, when the steering angle is different than 0. Also, because the circuit is counterclock-wise, our distribution of angles will be skewed to the left. 
 
 Taking this into account, and simulating the type of situations were the car didn't perform well, I collected what we call "recovery data". I ended up collecting over 10,000 camera frames (including left, center, and right images). The final training data is a combination of:
 - 1 lap center lane driving
 - 1 lap center lane driving clockwise around the track.
 - Recovery from the left and right side of the road. Special cases:
 	- Curve prior to bridge.
-	- Driving accross bridge.
+	- Driving across bridge.
 	- Every sharp curve.
 	- Sharp curve where there's no road delimiter but dirt. See below:
 
