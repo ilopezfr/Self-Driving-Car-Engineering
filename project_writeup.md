@@ -52,7 +52,7 @@ Taking this into account, and simulating the type of situations were the car did
 	- Every sharp curve.
 	- Sharp curve where there's no road delimiter but dirt. See below:
 
-![alt text][image3]
+    ![alt text][image3]
 
 In addition, I augmented the data during the training phase, which is explained in the next section. 
 
