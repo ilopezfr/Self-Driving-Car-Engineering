@@ -15,15 +15,24 @@ The goals / steps of this project are the following:
 
 [//]: # (Image References)
 
+[image0]: ./writeup_images/output1.png "Undistorted"
 [image1]: ./writeup_images/undistorted_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+[image2]: ./writeup_images/undistorted_road.png "Undistorted Road"
+[image3]: ./writeup_images/threshold.png "Thesholded Road"
+[image4]: ./writeup_images/warped_lines.png "Warped Lines"
+[image5]: ./writeup_images/lane_detected.png "Lane Detected"
+[image6]: ./writeup_images/curvature.png "Curvature"
+[image7]: ./writeup_images/plotting_back.png "Plotting"
+[image8]: ./writeup_images/output1.png "Output"
+[image9]: ./writeup_images/output2.png "Output"
+[image10]: ./writeup_images/output3.png "Output"
+[image11]: ./writeup_images/output4.png "Output"
+[video1]: ./project_video_out.mp4 "Video"
 
-The code for this project can be found in "./advanced-lane-project-pipeline.ipynb". 
+Here's the output of the lane finding pipeline: 
+[![alt text][image0](https://youtu.be/0c_CSzzUDe8)]
+
+The code for this project can be found at [`./advanced-lane-project-pipeline.ipynb`](./advanced-lane-project-pipeline.ipynb). 
 
 
 ###Camera Calibration
@@ -40,74 +49,89 @@ Below is a side-by-side of an undistorted image and its original.
 
 ###Pipeline (single images)
 
-####1. Provide an example of a distortion-corrected image.
-To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:
+####1. Camera distortion correction
+Below is an example of a before and after distortion-corrected test image. I used `undistort` function--which can be found in utils-- with the parameters camera matrix (`mtx`) to transform 3D to 2D and the distrotion coefficients (`dist`) obtained during the camera calibration step. 
+
 ![alt text][image2]
 
-####2. Describe how (and identify where in your code) you used color transforms, gradients or other methods to create a thresholded binary image.  Provide an example of a binary image result.
-I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
+####2.Image Thresholding
+Then I used a combination of color and gradient thresholds to generate a binary image. I used the function `threshold()`, which can be found in `utils.py`.
+
+I used a combination of color and gradient thresholds to generate a binary image (thresholding steps are in function threshold_binary() in notebook cell 11.
+
+First I converted the image to HLS color space, and grabbed the V channel. I then thresholded the image using different pixel identities to separate white and yellow masks.
+
+Additionally we use the OpenCV Sobel function to take the gradient of the image in the X direction. By taking the gradient in the X direction we can better pick out vertical features in the image (such as lane lines).
+
+Finally I merged these two thresholded images. Below is an example of my output for this step showing both the images described above. One is for debugging purposes where we stack the two images on top of each other (Combination of Masks) - enabling us to see in one image how each technique is contributing. The other (Thresholded Binary) is simply a bitwise-or between the two images. I used this one to find the lane lines.
 
 ![alt text][image3]
 
-####3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
+To find lane lines and their curvature, I followed these steps:
+- performed a perspective transformation on the image to get a top-down or birds-eye-view of the road.
+- Then used an histogram along the bottom half of the image to find the lane lanes.
+- Used a sliding window to iteratively move up the image finiding the lane lines until the top of the image. 
+- Fit a second order polynomial to find the lane line pixels. 
 
-The code for my perspective transform includes a function called `warper()`, which appears in lines 1 through 8 in the file `example.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), as well as source (`src`) and destination (`dst`) points.  I chose the hardcode the source and destination points in the following manner:
+####3. Perspective Transformation
 
-```
-src = np.float32(
-    [[(img_size[0] / 2) - 55, img_size[1] / 2 + 100],
-    [((img_size[0] / 6) - 10), img_size[1]],
-    [(img_size[0] * 5 / 6) + 60, img_size[1]],
-    [(img_size[0] / 2 + 55), img_size[1] / 2 + 100]])
-dst = np.float32(
-    [[(img_size[0] / 4), 0],
-    [(img_size[0] / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), img_size[1]],
-    [(img_size[0] * 3 / 4), 0]])
-
-```
-This resulted in the following source and destination points:
+The code for my perspective transform uses OpenCV's `getPerspectiveTransform()` and `warpPerspective()` functions and is based on a set of source and destination images points. The source and destination points chosen are the following: 
 
 | Source        | Destination   | 
 |:-------------:|:-------------:| 
-| 585, 460      | 320, 0        | 
-| 203, 720      | 320, 720      |
-| 1127, 720     | 960, 720      |
-| 695, 460      | 960, 0        |
+| 588, 446      | 200, 0        | 
+| 691, 446      | 1080, 0       |
+| 1126, 673     | 1080, 720     |
+| 153, 673      | 200, 72       |
 
-I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.
+I verified that my perspective transform was working as expected by drawing the `src` and `dst` points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image. Below is a sample image where binary thresholding and perspective transform applied. We can appreciate the line lines, althought with some noise: 
 
 ![alt text][image4]
 
-####4. Describe how (and identify where in your code) you identified lane-line pixels and fit their positions with a polynomial?
+####4. Lane Detection
+I added up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram are good indicators of the x-position of the base of the lane lines. I then used that as a starting point for my search for lines with a margin of 100px, and considered 1/9th of the image starting from bottom.
 
-Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
+Once one of the first frames was processed, I used the last known line location to restrict the search for new lane pixels. The code to perform the lane detection  the same can be found in the `advanced-lane-project-pipeline.ipynb` notebook. These are the results:
 
 ![alt text][image5]
 
-####5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
+####5. Measuring Curvature.
 
-I did this in lines # through # in my code in `my_other_file.py`
-
-####6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
-
-I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
+The radious of curvature for each line is calculated using the following relationship between pixel coordinates and real world coordinates:
 
 ![alt text][image6]
+
+These are the steps followed:
+- Convert from pixels to meters
+- Fit polynomials to the left and right lane line points.
+- Calculate the curvature as per the equation above.
+- Calculate the lane deviation from the center (between lane lines and assuming the camera is in the center of the car).
+
+####6. Plot back down onto the road.
+
+Plotting the identified lanes back on the original image of the road, this is how it looks: 
+![alt text][image7]
 
 ---
 
 ###Pipeline (video)
 
-####1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+Here's a [link to my video result](./project_video_out.mp4)
+For implemetation details check ./utils/pipeline.py and ./utils/line.py
 
-Here's a [link to my video result](./project_video.mp4)
+Some frames:
+![alt text][image8]
+![alt text][image9]
+![alt text][image10]
+![alt text][image11]
 
 ---
 
 ###Discussion
 
-####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-
-Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
+The pipeline performs reasonably good on the project video, even with the limited parameter tuning performed on the thresholding and smoothing steps. However it does not that well on the challenge videos. The reason is that the creation of binary image doesn't work well detecting the lane under the varied brightness situations on the road surface encountered on these videos. 
+I could build a more robust pipeline if I try using some methods like:
+- contrast-limited adaptive histogram equalization (CLAHE) to account for the varied brightness conditions.
+- Result smoothing. Use a weighted average or smoothing such as a first order filter response, i.e. coeffs = 0.95*coeff~prev+ 0.05 coeff.
+- Colour spaces. Investigate other colour space and their channels to see which still shows the lanes the best over the concrete sections of road.
 
