@@ -1,9 +1,6 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+##**Advanced Lane Finding Project**
 
----
-
-**Advanced Lane Finding Project**
+The code and results to generate this report can be found on the notebook: advanced-lane-project-pipeline [add link]
 
 The goals / steps of this project are the following:
 
