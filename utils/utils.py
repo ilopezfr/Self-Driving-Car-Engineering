@@ -110,7 +110,7 @@ def abs_sobel_thresh(img, orient='x', thresh_min=0, thresh_max=255):
     return binary_output
 
 
-# Aplly the sobel operator to an image and identify pixels where the gradient 
+# Apply the sobel operator to an image and identify pixels where the gradient 
 # of the image falls within a specified threshold range.
 def dir_thres(img, sobel_kernel=15, thresh=(0.7, 1.2)):
     # Convert to Grayscale

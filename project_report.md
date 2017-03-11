@@ -1,4 +1,6 @@
-##**Advanced Lane Finding Project**
+## Advanced Lane Finding Project
+---
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
 The code and results to generate this report can be found on the notebook: advanced-lane-project-pipeline [add link]
 
@@ -27,15 +29,16 @@ The goals / steps of this project are the following:
 [image9]: ./writeup_images/output2.png "Output"
 [image10]: ./writeup_images/output3.png "Output"
 [image11]: ./writeup_images/output4.png "Output"
-[video1]: ./project_video_out.mp4 "Video"
+[video1]: ./videos/project_video_out.mp4 "Video"
 
 Here's the output of the lane finding pipeline: 
-[![alt text][image0](https://youtu.be/0c_CSzzUDe8)]
+[![alt text][image0]](https://youtu.be/0c_CSzzUDe8)
 
 The code for this project can be found at [`./advanced-lane-project-pipeline.ipynb`](./advanced-lane-project-pipeline.ipynb). 
 
 
 ###Camera Calibration
+---
 To perform the camera calibration, I used the chessboard images located at `images/calibration` and run their grayscaled versions through `cv2.findChessboardCorners`. I make the assumptions that:
 - chessboard is fixed at z=0 plane.
 - image size (720, 1280, 3)  
@@ -48,7 +51,7 @@ Below is a side-by-side of an undistorted image and its original.
 ![alt text][image1]
 
 ###Pipeline (single images)
-
+---
 ####1. Camera distortion correction
 Below is an example of a before and after distortion-corrected test image. I used `undistort` function--which can be found in utils-- with the parameters camera matrix (`mtx`) to transform 3D to 2D and the distrotion coefficients (`dist`) obtained during the camera calibration step. 
 
@@ -115,11 +118,12 @@ Plotting the identified lanes back on the original image of the road, this is ho
 ---
 
 ###Pipeline (video)
+---
 
-Here's a [link to my video result](./project_video_out.mp4)
-For implemetation details check ./utils/pipeline.py and ./utils/line.py
+Here's a [link to my video result](./videos/project_video_out.mp4)
+For implemetation details check [`./utils/pipeline.py`](./utils/pipeline.py) and [`./utils/line.py`](./utils/line.py).
 
-Some frames:
+Some frames from the output video:
 ![alt text][image8]
 ![alt text][image9]
 ![alt text][image10]
@@ -128,7 +132,7 @@ Some frames:
 ---
 
 ###Discussion
-
+---
 The pipeline performs reasonably good on the project video, even with the limited parameter tuning performed on the thresholding and smoothing steps. However it does not that well on the challenge videos. The reason is that the creation of binary image doesn't work well detecting the lane under the varied brightness situations on the road surface encountered on these videos. 
 I could build a more robust pipeline if I try using some methods like:
 - contrast-limited adaptive histogram equalization (CLAHE) to account for the varied brightness conditions.
