@@ -91,15 +91,15 @@ From left to right:
 1. Output of the sliding windows algorithm, as implemented in the find_objects method. 
 This shows the sliding windows that had positive detections. 
 
-2.Blob extraction. The problem with HOG feature extraction is the number of false positives it can return. To deal with this, I built up a "heatmap" of our sliding window detections. This is done by creating a 2D array with the same dimensions of the image. 
+2. Blob extraction. The problem with HOG feature extraction is the number of false positives it can return. To deal with this, I built up a "heatmap" of our sliding window detections. This is done by creating a 2D array with the same dimensions of the image. 
 
-3. Heatmap. The brighter pixels indicate the concentration of sliding windows. I applied threshold mask to the heat to perform blob detection.
-This segregates our found sliding windows into detected individual objects as shown next.
+3. Heatmap. The brighter pixels indicate the concentration of sliding windows. I applied threshold mask to the heat to perform blob detection. This segregates our found sliding windows into detected individual objects as shown next.
 
 4. Heatmap converted to bounding boxes. 
 
 ### 4. Video Implementation of the pipeline
 Here's a [link to my video result](./output_images/project_video_output.mp4)
+It can also be watched on this [link to my Youtube channel](https://youtu.be/QWNvcGqb5WA)
 
 Some frames extracted from the video:
 
