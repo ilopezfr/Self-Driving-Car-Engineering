@@ -243,6 +243,9 @@ class ObjDetect(object):
         return output_image
 
     def process_and_display(self, image):
+        """
+        Process the image, detect objects, and display it with the windows.
+        """
         global heat
         global windows
         

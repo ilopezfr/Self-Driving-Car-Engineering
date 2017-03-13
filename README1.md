@@ -1,7 +1,6 @@
-## Vehicle Detection Project
+# Vehicle Detection Project
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
----
 The goals / steps of this project are the following:
 
 * Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a Linear SVM classifier
@@ -11,7 +10,7 @@ The goals / steps of this project are the following:
 * Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
 * Estimate a bounding box for vehicles detected.
 
---- 
+---
 [//]: # (Image References)
 
 [image0]: ./writeup_images/project_video.png "Screenshot to project video"
@@ -25,7 +24,7 @@ The goals / steps of this project are the following:
 [video1]: ./project_video_output.mp4 "Video"
 
 Here's the output of the lane finding pipeline: 
-[![alt text][image0]](https://youtu.be/0c_CSzzUDe8)
+[[![alt text][image0]](https://youtu.be/QWNvcGqb5WA)
 
 The pipeline for this project can be found on the accompanying iPython notebook [`./vehicle-detection-project-pipeline.ipynb`](./vehicle-detection-project-pipeline.ipynb)
 
