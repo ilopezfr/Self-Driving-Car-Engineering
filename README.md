@@ -24,7 +24,8 @@ The goals / steps of this project are the following:
 [video1]: ./project_video_output.mp4 "Video"
 
 Here's the output of the lane finding pipeline: 
-![alt text][image0](https://youtu.be/QWNvcGqb5WA)
+[![alt text][image0]](https://youtu.be/QWNvcGqb5WA)
+
 
 The pipeline for this project can be found on the accompanying iPython notebook [`./vehicle-detection-project-pipeline.ipynb`](./vehicle-detection-project-pipeline.ipynb)
 
@@ -108,7 +109,7 @@ Here we can see one example of a False Positive.
 ![alt text][image4]
 It properly detects and tracks the 2 vehicles when the enter into the visual field.
 
-![alt text][image2]
+![alt text][image5]
 
 ### Discussion
 
