@@ -62,12 +62,13 @@ feature_config = {
 }
 ```
 
-[![alt text][image1]]
+![alt text][image1]
 
 
 ### 2. Training the classifier. 
 A Linear SVM was chosen as my classifier. SVC provides relatively high accuracy and fast computation, which makes it a good fit for this type of job. 
-Here are the steps followed to train the classifier:
+Here are the steps followed to train the classifier: 
+
 1. Read all the positive images (with cars)
 2. Read all the negative images (without cars)
 3. Instantiate my feature extractor `ImgFeatExtract` with the chosen configuration.
@@ -75,11 +76,12 @@ Here are the steps followed to train the classifier:
 5. Split data into train and test, 70-30. 
 6. Instantiate a `LinearSVC` , fit it to the features and test its accuracy. 
 
-Without tuning the hyperparameters of LinearSVM and using the default ones, I achieved an accuracy of 99.36%, which is pretty goood for the model.
+Without tuning the hyper-parameters of LinearSVM and using the default ones, I achieved an accuracy of 99.36%, which is pretty goood for the model.
 
 
 ### 3. Sliding Window Search
 In this step is where we detect the vehicles by applying sliding window search. This algorithm is implemented in 2-steps: 
+
 1. Pyramid search or Scale search: We slide the windows across the image at different scales. This is good to detect objects in varying sizes, like cars driving on the road that are at different distances from me.  This method is applied using `get_sliding_windows` in  `process` of class ObjectDetector. 
 This method in-turn calls method `get_sliding_windows` passing it a different scale (or image size) on each iteration. get_sliding_windows returns an array of window points (rectangles). The windows are slid across the image with an amount of overlap that is configured--The pipeline I used 80% of overlap. Also the pipeline ignores the top of the image that doesn't corresponds with the road. 
 2. Slide the windows. Here's we pass a list of windows previously computed to the `find_objects()` function and loop thought all them. Each one of them is run through the feature extraction and classificaiton pipeline. Finally, it returns a list with the prediction hits.
