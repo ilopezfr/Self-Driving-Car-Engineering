@@ -6,6 +6,7 @@
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using namespace std;
+typedef Eigen::Matrix<double, 2, 1>  Vector2f;
 
 class Tools {
 public:
@@ -28,6 +29,11 @@ public:
   * A helper method to calculate Jacobians.
   */
   MatrixXd CalculateJacobian(const VectorXd& x_state);
+  
+  /**
+   * A helper method to transform Polar coordinates to Cartesian.
+   */
+  Vector2f PolarToCartesian(double rho, double phi);
 
 };
 
