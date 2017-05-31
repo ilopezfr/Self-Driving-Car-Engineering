@@ -8,22 +8,11 @@ using Eigen::VectorXd;
 using namespace std;
 typedef Eigen::Matrix<double, 2, 1>  Vector2f;
 
-class Tools {
-public:
+namespace Tools
+{
   /**
-  * Constructor.
-  */
-  Tools();
-
-  /**
-  * Destructor.
-  */
-  virtual ~Tools();
-
-  /**
-  * A helper method to calculate RMSE.
-  */
-  VectorXd CalculateRMSE(const vector<VectorXd> &estimations, const vector<VectorXd> &ground_truth);
+  * A helper method to calculate RMSE. */
+  VectorXd CalculateRMSE(const vector<VectorXd>& estimations, const vector<VectorXd>& ground_truth);
 
   /**
   * A helper method to calculate Jacobians.
