@@ -1,4 +1,4 @@
-# Udacity SDCE-ND - T2, P1: Extended Kalman Filter
+## Udacity SDCE-ND - T2-P1: Extended Kalman Filter
 
 [//]: # (Image References)
 
