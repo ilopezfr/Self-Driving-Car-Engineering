@@ -41,7 +41,7 @@ Once the install for uWebSocketIO is complete, the main program can be built--wi
 1. Make the build directory: `mkdir build && cd build`
 2. Compile: `cmake .. && make`
 3. Run it: `./ExtendedKF path/to/input.txt path/to/output.txt`
-  * e.g: `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt ../data/output/output-1.txt`
+   * e.g: `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt ../data/output/output-1.txt`
 
 ## Program Files
 Contained in `src` folder:
