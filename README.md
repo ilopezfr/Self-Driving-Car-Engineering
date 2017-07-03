@@ -59,6 +59,7 @@ How the files interact when you run the C++ program:
 Below is the output of my EKF from two different simulated runs using the input data provided.
 
 *Test 1*: input `sample-laser-radar-measurement-data-1.txt`
+
 | Input |   RMSE  |
 |:-----:|:-------:|
 |  px   | 0.06516 |
@@ -70,6 +71,7 @@ Below is the output of my EKF from two different simulated runs using the input 
 
 
 *Test 2*: input `sample-laser-radar-measurement-data-2.txt`
+
 | Input |   RMSE  |
 | ----- | ------- |
 |  px   | 0.18549 |
