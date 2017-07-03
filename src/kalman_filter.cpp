@@ -1,17 +1,18 @@
 #include "kalman_filter.h"
+#include <math.h>
+#include <iostream>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
+using namespace std;
+
+double SNormalizeAngle(double phi);
 
 KalmanFilter::KalmanFilter() {}
 
 KalmanFilter::~KalmanFilter() {}
 
-
-/** Initialization */
-
-void KalmanFilter::Init(
-                        VectorXd &x_in,
+void KalmanFilter::Init(VectorXd &x_in,
                         MatrixXd &P_in,
                         MatrixXd &F_in,
                         MatrixXd &H_in,
@@ -26,7 +27,6 @@ void KalmanFilter::Init(
 }
 
 /** Predict the state */
-
 void KalmanFilter::Predict() {
   x_ = F_ * x_;
   MatrixXd Ft = F_.transpose();
@@ -34,7 +34,6 @@ void KalmanFilter::Predict() {
 }
 
 /** Update the state by using Kalman Filter equations */
-
 void KalmanFilter::Update(const VectorXd& z,
                           const MatrixXd& H,
                           const MatrixXd& R) {

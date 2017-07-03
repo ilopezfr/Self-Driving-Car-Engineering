@@ -11,11 +11,9 @@ Tools::Tools() {}
 
 Tools::~Tools() {} */
 
-
 /** RMSE function */
-
-VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
-                              const vector<VectorXd> &ground_truth) {
+VectorXd Tools::CalculateRMSE(const vector<VectorXd>& estimations,
+                              const vector<VectorXd>& ground_truth) {
   // check that the estimation vector size equal to ground_truth vector size
   assert(estimations.size() == ground_truth.size());
   // check that the estimation vector size is not zero
@@ -41,8 +39,8 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
   return rmse;
 }
 
-/** Jacobian Matrix function */
 
+/** Jacobian Matrix function */
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   
   MatrixXd Hj(3,4);
@@ -74,7 +72,3 @@ Vector2f Tools::PolarToCartesian(double rho, double phi)
   result << rho * cos(phi), rho * sin(phi);
   return result;
 }
-
-
-
-

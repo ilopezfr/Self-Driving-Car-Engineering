@@ -8,23 +8,25 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using std::vector;
 
-/** Constructor.
+/*
+ * Constructor.
  */
-FusionEKF::FusionEKF()
-: is_initialized_(false)
-, previous_timestamp_(0)
-// initializing matrices
-, R_laser_(MatrixXd(2, 2))
-, R_radar_(MatrixXd(3, 3))
-, H_laser_(MatrixXd(2, 4))
-, Hj_(MatrixXd(3,4))
+FusionEKF::FusionEKF() {
+  is_initialized_ = false;
 
-{
+  previous_timestamp_ = 0;
+
+  // initializing matrices
+  R_laser_ = MatrixXd(2, 2);
+  R_radar_ = MatrixXd(3, 3);
+  H_laser_ = MatrixXd(2, 4);
+  Hj_ = MatrixXd(3, 4);
+
   //measurement covariance matrix - laser
   const float var_px = 0.0225;
   const float var_py = 0.0225;
   R_laser_ << var_px, 0, 0, var_py;
-  
+
   //measurement covariance matrix - radar
   const float var_rho = 0.09;
   const float var_phi = 0.0009;
@@ -41,11 +43,20 @@ FusionEKF::FusionEKF()
          1.0, 1.0, 0.0, 0.0,
          1.0, 1.0, 1.0, 1.0;
 
+  /**
+  TODO:
+    * Finish initializing the FusionEKF.
+    * Set the process and measurement noises
+  */
+
+
 }
 
-/** Destructor.
- */
+/**
+* Destructor.
+*/
 FusionEKF::~FusionEKF() {}
+
 
 /*****************************************************************************
 ** ProcessMeasurement
@@ -209,9 +220,8 @@ void FusionEKF::Update(const MeasurementPackage &measurement_pack)
   {
     ekf_.Update(measurement_pack.raw_measurements_, H_laser_, R_laser_);
   }
+  // print the output
+  std::cout << "x_ = " << ekf_.x_ << endl;
+  std::cout << "P_ = " << ekf_.P_ << endl;
+
 }
-
-
-// print the output
-//std::cout << "x_ = " << ekf_.x_ << endl;
-//std::cout << "P_ = " << ekf_.P_ << endl;
