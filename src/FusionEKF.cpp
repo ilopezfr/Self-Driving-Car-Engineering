@@ -91,8 +91,8 @@ void FusionEKF::Initialize(const MeasurementPackage& mp)
     const double rho = mp.raw_measurements_(0,0); // Range - radial distance from origin
     const double phi = mp.raw_measurements_(1,0); // Bearing - angle between rho and x
     const double rho_dot = mp.raw_measurements_(2,0); // Radial Velocity - change of p (range rate)
-    auto pos = Tools::PolarToCartesian(rho, phi);
-    auto vel = Tools::PolarToCartesian(rho_dot, phi);
+    auto pos = tools.PolarToCartesian(rho, phi);
+    auto vel = tools.PolarToCartesian(rho_dot, phi);
     x << pos(0,0), pos(1,0), vel(0,0), vel(1,0);
   }
   else if (mp.sensor_type_ == MeasurementPackage::LASER)
@@ -191,7 +191,7 @@ void FusionEKF::Update(const MeasurementPackage& mp)
   if (mp.sensor_type_ == MeasurementPackage::RADAR)
   {
     const auto& z = mp.raw_measurements_;
-    Hj_ = Tools::CalculateJacobian(ekf_.x_);
+    Hj_ = tools.CalculateJacobian(ekf_.x_);
 
     // Predict Radar Measurement z_pred
     const VectorXd z_pred = PredictRadarMeasurement(ekf_.x_);

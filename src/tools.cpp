@@ -2,14 +2,14 @@
 #include "tools.h"
 #include <cmath>
 
-/*
+
 using Eigen::VectorXd;
 using Eigen::MatrixXd;
 using std::vector;
 
 Tools::Tools() {}
 
-Tools::~Tools() {} */
+Tools::~Tools() {}
 
 /** RMSE function */
 VectorXd Tools::CalculateRMSE(const vector<VectorXd>& estimations,

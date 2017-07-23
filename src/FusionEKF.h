@@ -7,7 +7,7 @@
 #include <string>
 #include <fstream>
 #include "kalman_filter.h"
-/*#include "tools.h"*/
+#include "tools.h"
 
 class FusionEKF {
 public:
@@ -45,7 +45,7 @@ private:
   long previous_timestamp_;
 
   // tool object used to compute Jacobian and RMSE
-  /*Tools tools;*/
+  Tools tools;
   Eigen::MatrixXd R_laser_;
   Eigen::MatrixXd R_radar_;
   Eigen::MatrixXd H_laser_;

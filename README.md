@@ -2,8 +2,8 @@
 
 [//]: # (Image References)
 
-[image1]: ./img/test1.png "Test1"
-[image2]: ./img/test2.png "Test2"
+[image1]: ./img/sim-test-1.png "Test1"
+[image2]: ./img/sim-test-2.png "Test2"
 
 The goal of this project is to use a [Extended Kalman Filter](https://en.wikipedia.org/wiki/Extended_Kalman_filter) to estimate the state of a moving object of interest with noisy lidar and radar measurements.
 
@@ -40,8 +40,9 @@ Once the install for uWebSocketIO is complete, the main program can be built--wi
 
 1. Make the build directory: `mkdir build && cd build`
 2. Compile: `cmake .. && make`
-3. Run it: `./ExtendedKF path/to/input.txt path/to/output.txt`
-   * e.g: `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt ../data/output/output-1.txt`
+3. Run it: `./ExtendedKF path/to/input.txt`
+   * e.g: `./ExtendedKF ../data/sample-laser-radar-measurement-data-1.txt`
+   * e.g: `./ExtendedKF ../data/sample-laser-radar-measurement-data-2.txt`
 
 ## Program Files
 Contained in `src` folder:
@@ -58,25 +59,26 @@ How the files interact when you run the C++ program:
 ## Results:
 Below is the output of my EKF from two different simulated runs using the input data provided.
 
-*Test 1*: input `sample-laser-radar-measurement-data-1.txt`
+**Test 1**: input `sample-laser-radar-measurement-data-1.txt`
 
 | Input |   RMSE  |
 |:-----:|:-------:|
-|  px   | 0.06516 |
-|  py   | 0.06053 |
-|  vx   | 0.53321 |
-|  vy   | 0.54419 |
+|  px   | 0.1401  |
+|  py   | 0.6662  |
+|  vx   | 0.6045  |
+|  vy   | 1.6253  |
 
 ![alt text][image1]
 
+*Note*: seems to be having some issues when starting to turn to the right (around step 260), which has increased the RMSE.
 
-*Test 2*: input `sample-laser-radar-measurement-data-2.txt`
+**Test 2**: input `sample-laser-radar-measurement-data-2.txt`
 
 | Input |   RMSE  |
 | ----- | ------- |
-|  px   | 0.18549 |
-|  py   | 0.19030 |
-|  vx   | 0.47675 |
-|  vy   | 0.80446 |
+|  px   | 0.0726  |
+|  py   | 0.0965  |
+|  vx   | 0.4216  |
+|  vy   | 0.4932  |
 
 ![alt text][image2]
