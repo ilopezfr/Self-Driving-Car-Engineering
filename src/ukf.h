@@ -68,6 +68,14 @@ public:
   double lambda_;
 
 
+  ///* NIS: Normalized Innovation Squared: used for checking filter consistency
+  double NIS_laser_;
+  double NIS_radar_;
+
+  MatrixXd R_laser_;
+  MatrixXd R_radar_;
+
+
   /**
    * Constructor
    */
@@ -89,7 +97,7 @@ public:
    * matrix
    * @param delta_t Time between k and k+1 in s
    */
-  void Prediction(double delta_t);
+  void Prediction(double dt);
 
   /**
    * Updates the state and the state covariance matrix using a laser measurement
