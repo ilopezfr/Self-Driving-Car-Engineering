@@ -10,14 +10,13 @@ using Eigen::VectorXd;
 using std::vector;
 
 
-// faster
 static double NormalizeAngle(double angle)
 {
   return angle - (2*M_PI) * floor((angle + M_PI) / (2 * M_PI));
 }
 
 /**
- * Initializes Unscented Kalman filter
+ * Initialize Unscented Kalman filter
  */
 UKF::UKF() {
   // if this is false, laser measurements will be ignored (except during init)
@@ -53,14 +52,6 @@ UKF::UKF() {
   // Radar measurement noise standard deviation radius change in m/s
   std_radrd_ = 0.3;
 
-  /**
-  TODO:
-
-  Complete the initialization. See ukf.h for other member properties.
-
-  Hint: one or more values initialized above might be wildly off...
-  */
-
   is_initialized_ = false;
   time_us_ = 0;
 
@@ -85,9 +76,9 @@ UKF::UKF() {
   //std_a_ = 0.14;
   //std_yawdd_ = 0.2;
 
-  // Rule of thumb: std_a set to 1/2 max acceleration for an object
-  // car in urban environment: a_max= 6 m.s-2 => std_a = 3
-  // bicycle here => take a lower value
+  // Rule of thumb: std_a set to ~ 1/2 a_max for an object
+  // car in urban environment: std_a = 3 m/s^2 
+  // for a bicicle, choose a lower value: std_a = 1 m/s^2
   std_a_ = 1; // std for linear acceleration of object tracked
   std_yawdd_ = 0.5; // std for angular acceleration of object tracked
 
@@ -220,9 +211,9 @@ void UKF::Prediction(double dt) {
 
   //cout << "dt : " << dt << endl;
 
-  //------------------------------------------------------
-  // 1) Create Augmented State, Augmented Covariance matrix 
-  //------------------------------------------------------
+  /*-------------------------------------------------------
+   1) Create Augmented State, Augmented Covariance matrix
+  --------------------------------------------------------*/
 
   //create augmented mean vector
   VectorXd x_aug = VectorXd(n_aug_);
@@ -238,17 +229,17 @@ void UKF::Prediction(double dt) {
   P_aug(n_x_, n_x_) = std_a_ * std_a_;
   P_aug(n_x_+1, n_x_+1) = std_yawdd_ * std_yawdd_;
 
-  //------------------------------------------------------
-  // 2) Select Augmented Sigma points
-  //------------------------------------------------------
+  /*------------------------------------------------------
+   2) Select Augmented Sigma points (Xsig_aug)
+  ------------------------------------------------------*/
 
   // number of sigma points
   int n_sig = 2*n_aug_+1;
   //create sigma point matrix
   MatrixXd Xsig_aug = MatrixXd(n_aug_, n_sig);
-  Xsig_aug.fill(0.0); // BUG FIX !!!
+  Xsig_aug.fill(0.0);
 
-  //create square root matrix
+  //create square root matrix (A_aug)
   MatrixXd A_aug = P_aug.llt().matrixL();
 
   //create augmented sigma points
@@ -257,9 +248,9 @@ void UKF::Prediction(double dt) {
   Xsig_aug.middleCols(n_aug_+1, n_aug_) = -c1 *A_aug;
   Xsig_aug += x_aug.replicate(1, n_sig);
 
-  //-------------------------------------------------------------
-  // 3) Apply non linear CRTV process motion model: dt dependant
-  //-------------------------------------------------------------
+  /*------------------------------------------------------------
+   3) Apply non linear CRTV process motion model: dt dependant
+  -------------------------------------------------------------*/
 
   // This implements the CTRV process model
   //predict sigma points
@@ -295,9 +286,9 @@ void UKF::Prediction(double dt) {
     Xsig_pred_(4, n) += (dt*nu_yawdd);
   }  
 
-  //----------------------------------------------
-  // 4) Predict new Mean and new Covariance
-  //----------------------------------------------
+  /*----------------------------------------------
+   4) Predict new Mean and new Covariance
+  ----------------------------------------------*/
 
   //create vector for predicted state
   VectorXd x = VectorXd(n_x_);
@@ -347,9 +338,9 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
   // Number of sigma points
   int n_sig = 2*n_aug_+1;
 
-  //-------------------------------------------------------------------------------------
-  // 1) Apply non linear measurement model on Sigma points (we got from Prediction step)
-  //-------------------------------------------------------------------------------------
+  /*-------------------------------------------------------------------------------------
+   1) Apply non linear measurement model on Sigma points (we got from Prediction step)
+  -------------------------------------------------------------------------------------*/
 
   //create matrix for sigma points in measurement space
   MatrixXd Zsig = MatrixXd(n_z, n_sig);
@@ -366,23 +357,23 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
     Zsig(1, n) = py;
   }
 
-  //--------------------------------------------------
-  // 2) Calculate Mean and Covariance: z_pred and S
-  //--------------------------------------------------
+  /*--------------------------------------------------
+   2) Calculate Mean and Covariance: z_pred and S
+  ---------------------------------------------------*/
 
-  //mean predicted measurement
+  //mean predicted measurement (z_pred)
   VectorXd z_pred = VectorXd(n_z);
-  
-  //measurement covariance matrix S
+
+  //measurement covariance matrix (S)
   MatrixXd S = MatrixXd(n_z, n_z);
 
-  //calculate mean predicted measurement
+  //calculate mean predicted measurement (z_pred)
   z_pred.fill(0.0);
   for (int i = 0; i < n_sig; i++) {
     z_pred = z_pred + weights_(i) * Zsig.col(i); 
   }
 
-  //calculate measurement covariance matrix S
+  //calculate measurement covariance matrix (S)
   S.fill(0.0);
   for (int i = 0; i < n_sig; i++) {
     VectorXd zi = Zsig.col(i) - z_pred; 
@@ -391,14 +382,14 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
 
   S = S + R_laser_;
 
-  //-------------------------------------------------------------------------------------------
-  // 3) Calculate Cross-Correlation between Sigma points in state space and measurement space
-  //-------------------------------------------------------------------------------------------
+  /*-------------------------------------------------------------------------------------------
+   3) Calculate Cross-Correlation between Sigma points in state space and measurement space
+  -------------------------------------------------------------------------------------------*/
 
-  //create matrix for cross correlation Tc
+  // matrix for cross correlation (Tc)
   MatrixXd Tc = MatrixXd(n_x_, n_z);
 
-  //calculate cross correlation matrix
+  //calculate Tc
   Tc.fill(0.0);
   for (int i = 0; i < n_sig; i++) {
     VectorXd xi = Xsig_pred_.col(i) - x_; 
@@ -406,14 +397,14 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
     Tc = Tc + weights_(i) * xi * zi.transpose();
   }
 
-  //---------------------------------------------------
-  // 4) Calculate Kalman gain K
-  //---------------------------------------------------
+  /*---------------------------------------------------
+   4) Calculate Kalman gain K
+  ---------------------------------------------------*/
   MatrixXd K = Tc * S.inverse();
 
-  //--------------------------------------------------
-  // 5) Udpate state Mean and Covariance matrix
-  //--------------------------------------------------
+  /*-------------------------------------------------
+   5) Udpate state Mean and Covariance matrix
+  --------------------------------------------------*/
   VectorXd z = meas_package.raw_measurements_;
 
   VectorXd z_diff = z - z_pred;
@@ -421,9 +412,9 @@ void UKF::UpdateLidar(MeasurementPackage meas_package) {
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
 
-  //-------------------------------------------------------------------------------------------------------
-  // 6) Calculate NIS value for consistency check: 95% of values should be below 5.9 (2 Degrees of Freedom)
-  //-------------------------------------------------------------------------------------------------------
+  /*------------------------------------------------------------------------------------------------------
+   6) Calculate NIS value for consistency check: 95% of values should be below 5.9 (2 Degrees of Freedom)
+  -------------------------------------------------------------------------------------------------------*/
   VectorXd error = z - z_pred; 
   // NIS value follows chi-squared distribution
   NIS_laser_ = error.transpose() * S.inverse() * error;
@@ -449,14 +440,14 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   // Number of sigma points
   int n_sig = 2*n_aug_+1;
 
-  //-------------------------------------------------------------------------------------
-  // 1) Apply non linear measurement model on Sigma points (we got from Prediction step)
-  //-------------------------------------------------------------------------------------
+  /*------------------------------------------------------------------------------------
+   1) Apply non linear measurement model on Sigma points (calculated in Prediction step)
+  -------------------------------------------------------------------------------------*/
 
-  //create matrix for sigma points in measurement space
+  //create matrix for sigma points in measurement space (Zsig)
   MatrixXd Zsig = MatrixXd(n_z, n_sig);
 
-  //transform sigma points into measurement space
+  //transform sigma points into measurement space (n_sig)
   for (int n = 0; n < n_sig; n++) {
     double px = Xsig_pred_(0, n);
     double py = Xsig_pred_(1, n);
@@ -478,14 +469,14 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
     Zsig(2, n) = rho_dot;
   }
 
-  //--------------------------------------------------
-  // 2) Calculate Mean and Covariance: z_pred and S
-  //--------------------------------------------------
+  /*------------------------------------------------
+   2) Calculate Mean (z_pred) and Covariance (S)
+  --------------------------------------------------*/
 
-  //mean predicted measurement
+  // Mean Predicted Measurement (z_pred)
   VectorXd z_pred = VectorXd(n_z);
   
-  //measurement covariance matrix S
+  //measurement Covariance matrix (S) 
   MatrixXd S = MatrixXd(n_z, n_z);
 
   //calculate mean predicted measurement
@@ -509,9 +500,9 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
 
   S = S + R_radar_;
 
-  //-------------------------------------------------------------------------------------------
-  // 3) Calculate Cross-Correlation between Sigma points in state space and measurement space
-  //-------------------------------------------------------------------------------------------
+  /*-------------------------------------------------------------------------------------------
+   3) Calculate Cross-Correlation between Sigma points in state space and measurement space
+  -------------------------------------------------------------------------------------------*/
 
   //create matrix for cross correlation Tc
   MatrixXd Tc = MatrixXd(n_x_, n_z);
@@ -535,14 +526,14 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
     Tc = Tc + weights_(i) * xi * zi.transpose();
   }
 
-  //---------------------------------------------------
-  // 4) Calculate Kalman gain K
-  //---------------------------------------------------
+  /*---------------------------------------------------
+   4) Calculate Kalman Gain (K)
+  ----------------------------------------------------*/
   MatrixXd K = Tc * S.inverse();
 
-  //--------------------------------------------------
-  // 5) Udpate state Mean and Covariance matrix
-  //--------------------------------------------------
+  /*--------------------------------------------------
+   5) Udpate state Mean (x_) and Covariance matrix (P_)
+  ---------------------------------------------------*/
   VectorXd z = meas_package.raw_measurements_;
   VectorXd z_diff = z - z_pred;
   while (z_diff(1)> M_PI) z_diff(1)-=2.*M_PI;
@@ -551,10 +542,11 @@ void UKF::UpdateRadar(MeasurementPackage meas_package) {
   x_ = x_ + K * z_diff;
   P_ = P_ - K * S * K.transpose();
 
-  //-------------------------------------------------------------------------------------------------------
-  // 6) Calculate NIS value for consistency check: 95% of values should be below 7.8 (3 Degrees of Freedom)
-  //-------------------------------------------------------------------------------------------------------
-  VectorXd error = z - z_pred; 
+  /*-------------------------------------------------------------------------------------------------------
+   6) Calculate NIS value for consistency check: 95% of values should be below 7.8 (3 Degrees of Freedom)
+  --------------------------------------------------------------------------------------------------------*/
+  VectorXd error = z - z_pred;
+
   // NIS value follows chi-squared distribution
   NIS_radar_ = error.transpose() * S.inverse() * error;
   cout << "NIS_radar_ = " << NIS_radar_ << endl;
