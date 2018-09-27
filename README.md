@@ -14,8 +14,9 @@ The goal of this project is to code a PID Controller in C++ to be able to drive 
 * Convert PID output to steering input
 * Fine tune hyper-parameters for each PID coefficient
 
-## Results / Reflection
-A video of the simulated car driving around the track can be found [here.](https://github.com/mvirgo/PID-Control-Project/blob/master/PID_control_vid.mov)
+## Results
+A video of the car driving autonomously around the track in the simulator (click to see the full video)
+![alt text][video1](https://youtu.be/5VSFL0pN86w)
 
 ## PID Controller
 
@@ -28,16 +29,19 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 
 #### Proportional term: 
 * steers the wheel in proportion to the Cross-Track Error (CTE), which measures the distance between the car and the center of the lane. This means that the further we are from the center of the lane, the harder the steering. 
+
 ![alt text][equation1]
 * If P coefficient is set too high, the car will oscillate a lot as it will constantly try to overcorrect and overshoot the middle of the lane.  
 * If P coefficient is too low, the car will steer too slow to curves when it gets off-center. 
 
 ![alt text][image1]
+
 <sub><sub>source: Aerospace Controls Laboratory @MIT
 
 #### Derivative term: 
 * it takes into account the Cross-Track Error Rate, or how fast the car is moving in perpendicular direction of the desired trajectory when off-centered. 
 * If we are perfectly following the trajectory, the derivative gain will be zero. 
+
 ![alt text][equation2]
 * Increasing P increases the pull that the vehicle feels towards the desired trajectory
 * Increasing D increases the resistance of the car to move too quickly towards the line.
@@ -45,16 +49,19 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 * Properly choosing D coefficient will allow the car to approach the desired trajectory quickly with an error close to zero. 
 
 ![alt text][image2]
+
 <sub><sub>source: Aerospace Controls Laboratory @MIT
 
 #### Integral term (I): 
 * It sums up all the CTEs to that point and preventing the car to spend too much time in one side of the lane or the other. 
+
 ![alt text][equation3]
 * If we set the I coefficient too high, the car will tend to show quicker oscillations.
 * If we choose the I coefficient too low, the car will tend to drift to one side of the lane or the other for longer periods of time. 
 * Properly  choosing I will allow the vehicle to quickly correct the misalignment and return to its nominal performance. 
 
 ![alt text][image3]
+
 <sub><sub>source: Aerospace Controls Laboratory @MIT
 
 
@@ -102,3 +109,4 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 [equation1]: ./images/P.gif
 [equation2]: ./images/PD.gif
 [equation3]: ./images/PDI.gif
+[video1]: ./images/PID_trim.gif
