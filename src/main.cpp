@@ -46,7 +46,7 @@ int main(int argC, char* argV[])   // This way I can add the initial values of P
     } else {
       init_Kp = -0.1;
       init_Ki = -0.0005; 
-      init_Kd = -1.5;
+      init_Kd = -1.6;
     }
   // Initialize PID with P, I, and D constants
   pid.Init(init_Kp, init_Ki, init_Kd);
@@ -67,21 +67,27 @@ int main(int argC, char* argV[])   // This way I can add the initial values of P
           double speed = std::stod(j[1]["speed"].get<std::string>());
           double angle = std::stod(j[1]["steering_angle"].get<std::string>());
           double steer_value;
+          double throttle;
           /*
           * TODO: Calcuate steering value here, remember the steering value is
           * [-1, 1].
           * NOTE: Feel free to play around with the throttle and speed. Maybe use
           * another PID controller to control the speed!
           */
+
+         /* PID Controller for steering angle */
          pid.UpdateError(cte);
          steer_value = pid.TotalError();
+
+         /* PID Controller for throttle */ 
+         throttle = 0.4
           
           // DEBUG
-          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << " Distance: " << dist << std::endl;
 
           json msgJson;
           msgJson["steering_angle"] = steer_value;
-          msgJson["throttle"] = 0.3;
+          msgJson["throttle"] = throttle;
           auto msg = "42[\"steer\"," + msgJson.dump() + "]";
           std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);

@@ -41,6 +41,18 @@ public:
   * Calculate the total PID error.
   */
   double TotalError();
+
+  /*
+  * Initializes twiddle parameters.
+  */
+  void InitializeTwiddle();
+
+ /*
+  * Optimizes tau values (Kp, Ki, Kd).
+  */
+  void Twiddle();
+
+
 };
 
 #endif /* PID_H */
