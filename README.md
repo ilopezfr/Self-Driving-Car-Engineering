@@ -23,6 +23,7 @@ A video of the car driving autonomously around the track in the simulator (click
 A proportional–integral–derivative controller (PID controller or three term controller) is a control loop feedback mechanism widely used in industrial control systems and a variety of other applications requiring continuously modulated control.
 
 ![alt text][image0]
+
 <sub><sub>source: Aerospace Controls Laboratory @MIT
 
 
@@ -70,9 +71,9 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 
 #### Strategy for hyper-parameters selection
 1. I manually tested different values for Kp, Kd and Ki coefficients over a few iterations and eventually choosing a combination of values that provided good results. My approach was to first start with all gains initialized to zero--the car drives and it crashes in the first curve. Then I gradually increased the value of P and the car started oscillating and crashing in the second curve. Once I reached Kp ~0.1, I start tweaking the value of D. I kept trying different values of P and D until the car showed a response to a disturbance (i.e: curvature) with steady oscillation that quickly goes away (critically damped). At this point, the car was able to drive autonomously one full track. I then applied a tiny value for I gain, which allowed a more quickly correction to the nominal performance of the car without much oscillation. The final values chosen are:
-    * Kp = 0.1
-    * Ki = 0.005
-    * Kd = -1.6
+    * `Kp = -0.1`
+    * `Ki = -0.005`
+    * `Kd = -1.6`
 2. I also tried implementing Twiddle algorithm, which automates the process of finding the optimal parameters. I ended up no using it as the resulting parameters tended to vary every time I ran it, and didn't appreciate an improvement in driving behavior compared to using the parameter values manually chosen in the previous phase. 
 
 3. (TODO) Apply PID for throttle
@@ -99,7 +100,7 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./pid`. 
+4. Run it: `./pid` (using the pre-selected parameter values) or `./pid kp ki kd` (where kd, ki and kd are the desired values for the parameters) 
 
 
 
