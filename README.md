@@ -16,7 +16,7 @@ The goal of this project is to code a PID Controller in C++ to be able to drive 
 
 ## Results
 A video of the car driving autonomously around the track in the simulator (click to see the full video)
-![alt text][video1](https://youtu.be/5VSFL0pN86w)
+[![alt text][video1]](https://youtu.be/5VSFL0pN86w/)
 
 ## PID Controller
 
@@ -24,6 +24,7 @@ A proportional–integral–derivative controller (PID controller or three term 
 
 ![alt text][image0]
 <sub><sub>source: Aerospace Controls Laboratory @MIT
+
 
 PID Controller consists of 3 terms, namely proportional (P), integral (I), and derivative (D) control. The output of the controller depends on how we tune the hyperparameters associated with each of these terms. The values of these hyperparameters are specific to each application; in this project they are optimized to allow a car drive smoothly around a test track in a simulator. 
 
@@ -38,6 +39,7 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 
 <sub><sub>source: Aerospace Controls Laboratory @MIT
 
+
 #### Derivative term: 
 * it takes into account the Cross-Track Error Rate, or how fast the car is moving in perpendicular direction of the desired trajectory when off-centered. 
 * If we are perfectly following the trajectory, the derivative gain will be zero. 
@@ -49,7 +51,9 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 * Properly choosing D coefficient will allow the car to approach the desired trajectory quickly with an error close to zero. 
 
 ![alt text][image2]
-    <sub><sub>source: Aerospace Controls Laboratory @MIT
+
+<sub><sub>source: Aerospace Controls Laboratory @MIT
+
 
 #### Integral term (I): 
 * It sums up all the CTEs to that point and preventing the car to spend too much time in one side of the lane or the other. 
