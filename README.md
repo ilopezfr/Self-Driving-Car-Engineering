@@ -49,8 +49,7 @@ PID Controller consists of 3 terms, namely proportional (P), integral (I), and d
 * Properly choosing D coefficient will allow the car to approach the desired trajectory quickly with an error close to zero. 
 
 ![alt text][image2]
-
-<sub><sub>source: Aerospace Controls Laboratory @MIT
+    <sub><sub>source: Aerospace Controls Laboratory @MIT
 
 #### Integral term (I): 
 * It sums up all the CTEs to that point and preventing the car to spend too much time in one side of the lane or the other. 
