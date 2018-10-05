@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/coin/ThirdParty
+
+Name: Mumps
+Description: Multifrontal Massively Parallel sparse direct Solver
+URL: https://projects.coin-or.org/BuildTools
+Version: 1.6.0
+Libs: -L${libdir} -lcoinmumps /usr/local/lib/libcoinblas.a -lgfortran  -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. -lgfortran -lSystem -lquadmath -lm  -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. -lgfortran -lSystem -lquadmath -lm  -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. -lgfortran -lSystem -lquadmath -lm
+Cflags: -I${includedir} -DCOIN_USE_MUMPS_MPI_H
+Requires: 

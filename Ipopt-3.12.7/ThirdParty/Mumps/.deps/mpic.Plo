@@ -1,0 +1,3 @@
+mpic.lo: MUMPS/libseq/mpic.c MUMPS/libseq/mumps_mpi.h
+
+MUMPS/libseq/mumps_mpi.h:
