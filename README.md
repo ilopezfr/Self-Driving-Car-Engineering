@@ -2,7 +2,35 @@
 Self-Driving Car Engineer Nanodegree Program
 
 ---
+## Project Goal
+This repo contains C++ code for implementation of Model Predictive Controller. MPC is used to derive throttle, brake and steering angle actuators for a car to drive around a circular track.
 
+ A good solution would help the car stay in the center portion of the lane and take smooth left and right turns without touching or running over the edges of the lane (considered as risky in case humans were travelling in such a car). Also, the final implementation had to be tested with speeds as high as 100mph and note down the behavior of the car.
+
+
+## The Model
+We pass the current state of the vehicle to the model as a vector composed by vehicle's x and y coordinates, orientation angle (psi), and velocity, as well as the cross-track error (CTE) and psi error (epsi). 
+
+The optimization solver (Ipopt) then is called. This uses Initial State, Model, Constrains and Cost Function to return a vector of Control inputs that minimizes the cost function.
+
+This output vector returns the acceleration and delta (steering angle) for the N-1 next time steps. We apply only the first control input to the vehicle (d1, a1) and repeat the loop. 
+
+![alt text][image1]
+
+## Timestep Length and Elapsed Duration (N & dt):
+The final values chosen for N and dt parameters are 10 and 0.1, respectively. This means that our prediction horizon is 1 second into the future (T = 10 * 0.1).
+These values were chosen experimentally and following the guidance of Udacity's teachers. Adjusting either N or dt (even by small amounts) often produced erratic behavior. I first started with T=20 and the vehicle showed that it tent to go off the track while the simulator also was taking longer to compute. Then I tried other values like 15 / 0.05, 12 / 0.08, 5 / 0.15,.. but observed less optimal results than with 10 / 0.1, which I ended up choosing. 
+
+## Polynomial Fitting and MPC Preprocessing
+To simplify the process to fit the polynomial to the waypoints, theses were preprocessed by transforming them to the vehicle's point of view (this can be observed in main.cpp code). This setup the vehicle's coordinates at the origin (0,0) and the orientation angle to zero. 
+
+## Model Predictive Control with Latency
+In a real car, an actuation command won't execute instantly - there will be a delay as the command propagates through the system. In this project we assume a latency of 100 milliseconds, which is a realistic value.
+I accounted for this in the vehicle model, by adjusting the kinematics equations of the model. These depend upon the actuations from the previous timestep (t-1), which I setup to 0.1 sec (100ms). Considering a latency of 100ms the actuators are applied to one timestep later 
+A realistic delay might be on the order of 100 milliseconds.
+
+
+---
 ## Dependencies
 
 * cmake >= 3.5
@@ -106,3 +134,9 @@ still be compilable with cmake and make./
 
 ## How to write a README
 A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
+
+
+
+[//]: # (Image References)
+
+[image1]: ./images/MPC_equations.png "Equations"
