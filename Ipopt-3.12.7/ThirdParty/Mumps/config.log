@@ -30,8 +30,8 @@ Kernel configured for up to 4 processors.
 Processor type: i486 (Intel 80486)
 Processors active: 0 1 2 3
 Primary memory available: 8.00 gigabytes
-Default processor set: 344 tasks, 2322 threads, 4 processors
-Load average: 3.09, Mach factor: 1.42
+Default processor set: 357 tasks, 2258 threads, 4 processors
+Load average: 4.59, Mach factor: 0.58
 /bin/machine           = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
@@ -244,7 +244,7 @@ Configured with: ../configure --build=x86_64-apple-darwin14.0.0 --prefix=/usr/lo
 Thread model: posix
 gcc version 4.9.2 (Homebrew gcc 4.9.2_1) 
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
- /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/f951 conftest.f -ffixed-form -fPIC -quiet -dumpbase conftest.f -mmacosx-version-min=10.12.7 -mtune=core2 -auxbase conftest -version -fintrinsic-modules-path /usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/finclude -o /var/tmp//ccZ8XCme.s
+ /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/f951 conftest.f -ffixed-form -fPIC -quiet -dumpbase conftest.f -mmacosx-version-min=10.12.7 -mtune=core2 -auxbase conftest -version -fintrinsic-modules-path /usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/finclude -o /var/tmp//ccZigTLK.s
 GNU Fortran (Homebrew gcc 4.9.2_1) version 4.9.2 (x86_64-apple-darwin14.0.0)
 	compiled by GNU C version 4.9.2, GMP version 6.0.0, MPFR version 3.1.2-p10, MPC version 1.0.2
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -252,16 +252,16 @@ GNU Fortran (Homebrew gcc 4.9.2_1) version 4.9.2 (x86_64-apple-darwin14.0.0)
 	compiled by GNU C version 4.9.2, GMP version 6.0.0, MPFR version 3.1.2-p10, MPC version 1.0.2
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
- as -arch x86_64 -force_cpusubtype_ALL -o /var/tmp//ccJ8cKon.o /var/tmp//ccZ8XCme.s
+ as -arch x86_64 -force_cpusubtype_ALL -o /var/tmp//ccmnZ1YM.o /var/tmp//ccZigTLK.s
 Reading specs from /usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../../libgfortran.spec
 rename spec lib to liborig
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
 COMPILER_PATH=/usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/:/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/
 LIBRARY_PATH=/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../../
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
- /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/collect2 -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//ccJ8cKon.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+ /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/collect2 -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//ccmnZ1YM.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
 collect2 version 4.9.2
-/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//ccJ8cKon.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//ccmnZ1YM.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
 @(#)PROGRAM:ld  PROJECT:ld64-305
 configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
 Library search paths:
@@ -281,7 +281,7 @@ Configured with: ../configure --build=x86_64-apple-darwin14.0.0 --prefix=/usr/lo
 Thread model: posix
 gcc version 4.9.2 (Homebrew gcc 4.9.2_1) 
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
- /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/f951 conftest.f -ffixed-form -fPIC -quiet -dumpbase conftest.f -mmacosx-version-min=10.12.7 -mtune=core2 -auxbase conftest -version -fintrinsic-modules-path /usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/finclude -o /var/tmp//ccaxyEZF.s
+ /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/f951 conftest.f -ffixed-form -fPIC -quiet -dumpbase conftest.f -mmacosx-version-min=10.12.7 -mtune=core2 -auxbase conftest -version -fintrinsic-modules-path /usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/finclude -o /var/tmp//ccfmIW3q.s
 GNU Fortran (Homebrew gcc 4.9.2_1) version 4.9.2 (x86_64-apple-darwin14.0.0)
 	compiled by GNU C version 4.9.2, GMP version 6.0.0, MPFR version 3.1.2-p10, MPC version 1.0.2
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
@@ -289,16 +289,16 @@ GNU Fortran (Homebrew gcc 4.9.2_1) version 4.9.2 (x86_64-apple-darwin14.0.0)
 	compiled by GNU C version 4.9.2, GMP version 6.0.0, MPFR version 3.1.2-p10, MPC version 1.0.2
 GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
- as -arch x86_64 -force_cpusubtype_ALL -o /var/tmp//cc6yuTuk.o /var/tmp//ccaxyEZF.s
+ as -arch x86_64 -force_cpusubtype_ALL -o /var/tmp//ccnlQvaC.o /var/tmp//ccfmIW3q.s
 Reading specs from /usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../../libgfortran.spec
 rename spec lib to liborig
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
 COMPILER_PATH=/usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/:/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/
 LIBRARY_PATH=/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/:/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../../
 COLLECT_GCC_OPTIONS='-mmacosx-version-min=10.12.7' '-o' 'conftest' '-v' '-shared-libgcc' '-mtune=core2'
- /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/collect2 -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//cc6yuTuk.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+ /usr/local/Cellar/gcc/4.9.2_1/libexec/gcc/x86_64-apple-darwin14.0.0/4.9.2/collect2 -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//ccnlQvaC.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
 collect2 version 4.9.2
-/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//cc6yuTuk.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
+/usr/bin/ld -dynamic -arch x86_64 -macosx_version_min 10.12.7 -syslibroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk -weak_reference_mismatches non-weak -o conftest -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. /var/tmp//ccnlQvaC.o -lgfortran -no_compact_unwind -lSystem -lgcc_ext.10.5 -lgcc -lquadmath -lm -lgcc_ext.10.5 -lgcc -lSystem -v
 @(#)PROGRAM:ld  PROJECT:ld64-305
 configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
 Library search paths:
@@ -329,7 +329,7 @@ configure:4420: $? = 0
 configure:4467: clang -o conftest -O3 -pipe -DNDEBUG    -DMUMPS_BUILD   conftest.c cfortran_test.o   -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2 -L/usr/local/Cellar/gcc/4.9.2_1/lib/gcc/4.9/gcc/x86_64-apple-darwin14.0.0/4.9.2/../../.. -lgfortran -lSystem -lquadmath -lm >&5
 Undefined symbols for architecture x86_64:
   "_foobar", referenced from:
-      _main in conftest-a40f61.o
+      _main in conftest-8d1a89.o
      (maybe you meant: _foobar_)
 ld: symbol(s) not found for architecture x86_64
 clang: error: linker command failed with exit code 1 (use -v to see invocation)
