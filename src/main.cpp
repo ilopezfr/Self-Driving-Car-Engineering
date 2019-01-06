@@ -248,14 +248,15 @@ int main() {
 
           	json msgJson;
 
-          	// vector<double> next_x_vals;
-          	// vector<double> next_y_vals;
+            // PROJECT CODE:
+            /***
+            Define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
+            ***/
 
-////////////// TODO: define a path made up of (x,y) points that the car will visit sequentially every .02 seconds
-            // Provided previous path point size.
+            // Provide previous path points size.
             int prev_size = previous_path_x.size();
 
-            // PREDICTION 
+            // 1/3 PREDICTION 
             /***
             Analyze other cars positions and estimate their future trajectory.
             - to simplify, we assume cars identified stay in the same lane, so we only predict their
@@ -263,6 +264,10 @@ int main() {
             - 
             ***/
 
+
+
+
+            /******* Old Solution
             // my car future position
             if (prev_size > 0) {
               car_s = end_path_s;
@@ -311,8 +316,75 @@ int main() {
                   car_right |= (car_s - 30) < check_car_s && (car_s + 30) > check_car_s;
                 }
             }
+            // Old solution ******
+            */
 
-            // BEHAVIOR
+            double ref_x = car_x;
+            double ref_y = car_y;
+            double ref_yaw = deg2rad(car_yaw);
+
+            vector<double> frenet_vec = getFrenet(ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
+
+            // Lane Calculation (which lane the car is in)
+            int checkLane(float d){
+              int check_car_lane;
+
+              // sensor_fusion vector only contains info from cars on the right side of the road.
+              if (d < 4){
+                check_car_lane = 0;  // left
+              } else if (d < 8){
+                check_car_lane = 1;  // center
+              } else {
+                check_car_lane = 2;  // right
+              }
+              return check_car_lane;
+            }
+
+            // Closest Vehicle (check which vehicle is closest to me)
+            vector<double> closestVehicle(double s, int lane, vector<vector<double>> sensor_fusion, bool ahead) {
+              double dist = 10000;
+              double velocity = 22.352 - 0.5;  // 22.352 m/s^2 = 50 MPH
+                double vx;
+                double vy;
+                double check_car_s;
+                float check_car_d;
+                double check_car_v;
+                int check_car_lane;
+
+                // Check each car around me:
+                for (int i=0; i < sensor_fusion.size(); i++){
+                  vx = sensor_fusion[i][3];
+                  vy = sensor_fusion[i][4];
+                  check_car_s = sensor_fusion[i][5];
+                  check_car_d = sensor_fusion[i][6];
+                  check_car_v = sqrt(pow(vx,2) + pow(vy,2));
+                  check_car_lane = checkLane(check_car_d);
+
+                  if (check_car_lane == lane){ // if in same lane
+                    if (ahead == true) {  // if ahead of me
+                      if (check_car_s > s && (check_car_s - s) < dist){ 
+                        dist = check_car_s - s;
+                        velocity = check_car_v;
+                      }
+                    } else {  // if behind me
+                      if (s >= check_car_s && (s - check_car_s) < dist){ 
+                        dist = s - check_car_s;
+                        velocity = check_car_v;
+                      }
+                    }
+                  }
+              }
+              if (dist <= 0){  // avoid dividing by zero later
+                dist = 1.0;
+              }
+              if (lane == curr_lane and ahead == true){
+                curr_lead_vehicle_speed = velocity;
+
+              }
+              return{dist, velocity};   // (m, m/s)
+            }
+
+            // 2/3 BEHAVIOR
             /***
             Determine what behavior my car should exhibit based on my predictions of the environment.
             - Do we change lanes?
@@ -321,6 +393,8 @@ int main() {
             Output: future lane and velocity.
             This part could be improved at the expense of complexity by using Cost functions.
             ***/
+
+            /*****  Old solution
             double speed_diff = 0;
             const double MAX_SPEED = 49.5;
             const double MAX_ACC = .224;
@@ -351,9 +425,84 @@ int main() {
                 speed_diff += MAX_ACC;
               }
             }
+            // Old Solution ************
+            */
+
+            // Decide whether to go left, right or center lane. 
+            int lanePlanner(double s, float d, vector<vector<double>> sensor_fusion) {
+              int lane = checkLane(d);
+              int new_lane;
+              double distance = closestVehicle(s, lane, sensor_fusion, true)[0];
+
+              curr_lane = lane; 
+              
+              // check if blocked, i.e. car is within 20 meters
+              if (distance > 20) { // if lots of space, stay in lane and go near the speed limit
+                new_lane = lane;
+                double target_vehicle_speed = 22.352 - 0.5;
+                vector<double> avg_scores = {0,0,0}; // Reset average scores for laneScore()
+                return 0;
+              } else {
+                //new_lane = laneScore(s, lane, sensor_fusion);
+                /////////// fit laneScore fucntion
+              vector<double> scores = {0,0,0};
+              vector<double> front_car;
+              vector <double> back_car;
+
+              for (int i = 0; i < 3; i++){
+                if (i == lane){  // benefit to keeping lane
+                  scores[i] += 0.5;
+                }
+                front_car = closestVehicle(s, i , sensor_fusion, true);
+                back_car = closestVehicle(s, i, sensor_fusion, false);
+
+                if (front_car[0] > 1000 && back_car[0] > 1000){  // distance TODO: try reduce back_car distance
+                  scores[i] += 5;   // if wide open lane, move into that lane
+                } else {
+                  if (front_car[0] < 10){
+                    scores[i] -= 5;   // if car too close in front, assing negative score
+                  }
+                  if (back_vehicle[0] < 10) {
+                        scores[i] -= 5; // if car too close in back, negative score
+                    }
+                    // between 10 and 1000m. benefit more the further away from 30, penalize if between 10-30m
+                    scores[i] += 1 - (30/front_car[0]);   // benefit for large open distance in lane in front
+                    scores[i] += 1 - (30/back_car[0]);  // benefit for large open distance in lane in back
+                      scores[i] += 1 - (20/front_car[1]); // benefit for faster car speed in lane in front
+                      scores[i] += 1 - (back_car[1]/20) ; // benefit for slower car speed in lane in back
+                }
+                  // Simple in-exact calculation for scores over the last ten iterations
+                  avg_scores[i] = (avg_scores[i] * 10) - avg_scores[i];
+                  avg_scores[i] += scores[i];
+                  avg_scores[i] /= 10;
+                }
+                // only compare applicable lanes
+                if (lane == 0){
+                  new_lane = max_element(avg_scores.begin(), avg_scores.end() - 1) - avg_scores.begin();
+                } else if (lane == 1){
+                  new_lane = max_element(avg_scores.begin(), avg_scores.end()) - avg_scores.begin();
+                } else {
+                  new_lane = max_element(avg_scores.begin() + 1, avg_scores.end()) - avg_scores.begin();
+                }   
+                //////////////// end laneScore function
+
+                vector <double> car = closestVehicle(s, new_lane, sensor_fusion, true);
+                target_vehicle_speed = car[1];
+              }
+              
+              // Space between middle of each lane is four meters, so move accordingly
+              if (new_lane == lane) {
+                return 0;
+              } else if (new_lane < lane) {
+                return -4;
+              } else {
+                return 4;
+              }
+            }
 
 
-            //  TRAJECTORY
+
+            // 3/3 TRAJECTORY
             /***
             Determine which trajectory is best for executing the chosen immediate behavior
             - Using spline instead of polynomial trajectory generation. 
@@ -363,6 +512,16 @@ int main() {
             Output: next_x_vals, next_y_vals vectors --> will have 3 future points and 47 previous points.
             ***/
 
+            vector<double> next_x_vals;
+            vector<double> next_y_vals;
+
+            // Start with remaining old path
+            for(int i = 0; i < prev_size; i++)
+            {
+              next_x_vals.push_back(previous_path_x[i]);
+              next_y_vals.push_back(previous_path_y[i]);
+            }
+
           	vector<double> ptsx;
             vector<double> ptsy;
 
@@ -370,8 +529,9 @@ int main() {
             double ref_x = car_x;
             double ref_y = car_y;
             double ref_yaw = deg2rad(car_yaw);
+            double ref_vel;
 
-            // Check if I have any previous point
+            // Check if I have any previous path
             if ( prev_size < 2 ) {
                 // If not, use current car position to create a tangent to the car as starting point.
                 double prev_car_x = car_x - cos(car_yaw);
@@ -383,15 +543,17 @@ int main() {
                 ptsy.push_back(prev_car_y);
                 ptsy.push_back(car_y);
 
-            // If I do, use the last two points of my previous path.
+                ref_vel = car_speed;
+           
             } else {
-                // Redefine the reference point to last point of previous path.
+                // If I do, use the last two points of my previous path.
                 ref_x = previous_path_x[prev_size - 1];
                 ref_y = previous_path_y[prev_size - 1];
 
                 double ref_x_prev = previous_path_x[prev_size - 2];
                 double ref_y_prev = previous_path_y[prev_size - 2];
                 ref_yaw = atan2(ref_y-ref_y_prev, ref_x-ref_x_prev);
+                ref_vel = target_vehicle_speed
 
                 ptsx.push_back(ref_x_prev);
                 ptsx.push_back(ref_x);
@@ -400,11 +562,38 @@ int main() {
                 ptsy.push_back(ref_y);
             }
 
+            /***************/
+            /* This is from MV solution in which the Path Plan is calculated. 
+            it references 
+            */
+            // Plan the rest of the path based on calculations
+            vector<double> frenet_vec = getFrenet(ref_x, ref_y, ref_yaw, map_waypoints_x, map_waypoints_y);
+
+            double move = lanePlanner(frenet_vec[0], frenet_vec[1], sensor_fusion);
+            double lane = curr_lane;
+            double next_d = (lane * 4) + 2 + move;
+          
+            // Double-check that the car has not incorrectly chose a blocked lane
+            int check_lane = checkLane(next_d);
+            vector<double> front_car = closestVehicle(frenet_vec[0], check_lane, sensor_fusion, true);
+            vector<double> back_car = closestVehicle(frenet_vec[0], check_lane, sensor_fusion, false);
+          
+            // Reset to current lane and leading vehicle if not enough room
+            if (front_car[0] < 10 or back_car[0] < 10 or avg_scores[check_lane] <= -5) {
+              next_d = (lane * 4) + 2;
+              if (check_lane != lane) {
+                target_vehicle_speed = curr_lead_vehicle_speed;
+              }
+            }
+
+            /***************/
+
             // Add 3 target points in the future to ptsc and ptsy vectors. 
-            // we need to convert the frenet coordinates from car_s into cartesian.
-            vector<double> next_wp0 = getXY(car_s + 30, 2 + 4*lane, map_waypoints_s, map_waypoints_x, map_waypoints_y);
-            vector<double> next_wp1 = getXY(car_s + 60, 2 + 4*lane, map_waypoints_s, map_waypoints_x, map_waypoints_y);
-            vector<double> next_wp2 = getXY(car_s + 90, 2 + 4*lane, map_waypoints_s, map_waypoints_x, map_waypoints_y);
+            // Use getXY to convert the frenet coordinates from car_s into cartesian.
+            // TODO: try different future points for 's' i.e: 30,60,90 or 50,100,150.
+            vector<double> next_wp0 = getXY(car_s + 40, 2 + 4*lane, map_waypoints_s, map_waypoints_x, map_waypoints_y);
+            vector<double> next_wp1 = getXY(car_s + 80, 2 + 4*lane, map_waypoints_s, map_waypoints_x, map_waypoints_y);
+            vector<double> next_wp2 = getXY(car_s + 120, 2 + 4*lane, map_waypoints_s, map_waypoints_x, map_waypoints_y);
 
             ptsx.push_back(next_wp0[0]);
             ptsx.push_back(next_wp1[0]);
@@ -414,7 +603,7 @@ int main() {
             ptsy.push_back(next_wp1[1]);
             ptsy.push_back(next_wp2[1]);
 
-            // Making coordinates to local car coordinates.
+            // Shift and rotate points to local car coordinates.
             for ( int i = 0; i < ptsx.size(); i++ ) {
               double shift_x = ptsx[i] - ref_x;
               double shift_y = ptsy[i] - ref_y;
@@ -425,10 +614,14 @@ int main() {
 
             // Create the spline.
             tk::spline s;
+
+            // set (x, y) points to the spline
             s.set_points(ptsx, ptsy);
 
-          	vector<double> next_x_vals;
+          	/* //DMT
+            vector<double> next_x_vals;
           	vector<double> next_y_vals;
+            */
 
             // add previous path points for continuity and smooth transition.
             for ( int i = 0; i < prev_size; i++ ) {
@@ -439,20 +632,29 @@ int main() {
             // Calculate "y" position on x= 30 m ahead.
             double target_x = 30.0;
             double target_y = s(target_x);
-            double target_dist = sqrt(target_x*target_x + target_y*target_y);
+            double target_dist = sqrt(pow(target_x,2) + pow(target_y,2));
 
             double x_add_on = 0;
+            const int MAX_ACC1 = 10; // m/s^2
+            const double accel = (MAX_ACC1) * 0.02 * 0.8;  // Limit acceleration within acceptable range
 
             for( int i = 1; i < 50 - prev_size; i++ ) {
+              if (ref_vel < target_vehicle_speed - accel){ // Accelerate if under target speed
+                ref_vel += accel;
+              } else if (ref_vel > target_vehicle_speed + accel){  // Brake if below target speed
+                ref_vel -= accel;
+              }
 
+              /* //DMT
               ref_vel += speed_diff;
               if ( ref_vel > MAX_SPEED ) {
                 ref_vel = MAX_SPEED;
               } else if ( ref_vel < MAX_ACC ) {
                 ref_vel = MAX_ACC;
               }
+              */
 
-              double N = target_dist/(0.02*ref_vel/2.24);
+              double N = target_dist/(0.02*ref_vel);    // /2.24);
               double x_point = x_add_on + target_x/N;
               double y_point = s(x_point);
 
@@ -461,8 +663,8 @@ int main() {
               double x_ref = x_point;
               double y_ref = y_point;
 
-              x_point = x_ref * cos(ref_yaw) - y_ref * sin(ref_yaw);
-              y_point = x_ref * sin(ref_yaw) + y_ref * cos(ref_yaw);
+              x_point = x_ref*cos(ref_yaw) - y_ref*sin(ref_yaw);
+              y_point = x_ref*sin(ref_yaw) + y_ref*cos(ref_yaw);
 
               x_point += ref_x;
               y_point += ref_y;
@@ -470,7 +672,10 @@ int main() {
               next_x_vals.push_back(x_point);
               next_y_vals.push_back(y_point);
             }
-////////////////END
+
+            target_vehicle_speed = ref_vel;  // Save the end speed to be used for the next path calculation
+
+          ///* END PROJECT CODE
           
           // we pass the values calculated for next x,y to the simulator:
           	msgJson["next_x"] = next_x_vals;
