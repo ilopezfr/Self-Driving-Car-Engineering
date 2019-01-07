@@ -4,7 +4,7 @@
 
 
 // Lane Calculation (which lane the car is in)
-int checkLane(float d){
+int BehaviorPlanner::checkLane(double d){
   int check_car_lane;
 
   // sensor_fusion vector only contains info from cars on the right side of the road.
@@ -19,17 +19,17 @@ int checkLane(float d){
 }
 
 // Closest Vehicle (check which vehicle is closest to me)
-vector<double> closestVehicle(double s, int lane, vector<vector<double>> sensor_fusion, bool ahead) {
+vector<double> BehaviorPlanner::closestVehicle(double s, int lane, vector<vector<double>> sensor_fusion, bool ahead) {
   double dist = 10000;
   double velocity = 22.352 - 0.5;  // 22.352 m/s^2 = 50 MPH
   double vx;
   double vy;
   double check_car_s;
-  float check_car_d;
+  double check_car_d;
   double check_car_v;
   int check_car_lane;
-  int curr_lane;
-  double curr_lead_vehicle_speed;
+  //int curr_lane;
+  //double curr_lead_vehicle_speed;
 
   // Check each car around me:
   for (int i=0; i < sensor_fusion.size(); i++){
@@ -65,7 +65,7 @@ vector<double> closestVehicle(double s, int lane, vector<vector<double>> sensor_
 }
 
 // Decide whether to go left, right or center lane. 
-int lanePlanner(double s, float d, vector<vector<double>> sensor_fusion) {
+int BehaviorPlanner::lanePlanner(double s, double d, vector<vector<double>> sensor_fusion) {
   int lane = checkLane(d);
   int new_lane;
   int curr_lane;
@@ -99,7 +99,7 @@ int lanePlanner(double s, float d, vector<vector<double>> sensor_fusion) {
       if (front_car[0] < 10){
         scores[i] -= 5;   // if car too close in front, assing negative score
       }
-      if (back_vehicle[0] < 10) {
+      if (back_car[0] < 10) {
             scores[i] -= 5; // if car too close in back, negative score
         }
         // between 10 and 1000m. benefit more the further away from 30, penalize if between 10-30m
