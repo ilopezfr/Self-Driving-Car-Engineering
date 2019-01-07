@@ -431,7 +431,7 @@ int main() {
                 double ref_x_prev = previous_path_x[prev_size - 2];
                 double ref_y_prev = previous_path_y[prev_size - 2];
                 ref_yaw = atan2(ref_y-ref_y_prev, ref_x-ref_x_prev);
-                ref_vel = target_vehicle_speed
+                ref_vel = bp.target_vehicle_speed
 
                 ptsx.push_back(ref_x_prev);
                 ptsx.push_back(ref_x);
@@ -460,7 +460,7 @@ int main() {
             if (front_car[0] < 10 or back_car[0] < 10 or avg_scores[check_lane] <= -5) {
               next_d = (lane * 4) + 2;
               if (check_lane != lane) {
-                target_vehicle_speed = curr_lead_vehicle_speed;
+                bp.target_vehicle_speed = bp.curr_lead_vehicle_speed;
               }
             }
 
