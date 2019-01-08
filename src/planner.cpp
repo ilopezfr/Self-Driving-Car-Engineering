@@ -83,8 +83,11 @@ int PathPlanner::laneScore(double s, int lane, vector<vector<double>> sensor_fus
       if (front_car[0] < 10) {  //  - if front car too close.
         scores[i] -= 5;
       }
-      if (back_car[0] < 10) {   //  - if back car too close.
+      if (back_car[0] >= 4 && back_car[0] < 10) {   //  - if back car too close.
         scores[i] -= 5; 
+      } 
+      if (back_car [0] < 4 ){  // - if back car very close 
+        scores[i] -= 10;
       }
       scores[i] += 1 - (30/front_car[0]);  // + the largest the distance in front [30,1000) 
       scores[i] += 1 - (30/back_car[0]);  // + the largest the distance in the back [30,100) 
@@ -118,15 +121,16 @@ int PathPlanner::lanePlanner(double s, double d, vector<vector<double>> sensor_f
   curr_lane = lane; // Keep the current lane to later calculate desired move
   
   // check if blocked, i.e. car is within 20 meters
-  if (distance > 20) { // if lots of space, stay in lane and go near the speed limit
+  if (distance > 15) { // if lots of space, stay in lane and go near the speed limit
     new_lane = lane;
     target_car_speed = 22.352 - 0.22;
     avg_scores = {0,0,0}; // Reset average scores for laneScore()
     return 0;
   } else {
     new_lane = laneScore(s, lane, sensor_fusion);
-    vector <double> car = nearestCar(s, new_lane, sensor_fusion, true);
-    target_car_speed = car[1];
+    vector <double> car_next_lane = nearestCar(s, new_lane, sensor_fusion, true);
+    vector <double> car_my_lane = nearestCar(s, lane, sensor_fusion, true);
+    target_car_speed = min_element(car_my_lane[1], car_next_lane[1]);
   }
   
   // Space between middle of each lane is four meters, so move accordingly
