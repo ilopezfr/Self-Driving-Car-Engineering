@@ -1,11 +1,8 @@
 # Path Planning Project
 Self-Driving Car Engineer Nanodegree Program - Term 3
    
-![alt text][image1]
-Timelapse video of car driving 10 miles in the simulator 
+[![alt text][image1]]((https://www.youtube.com/watch?v=cckhao1qgP4))
 
-(screen shot or gift car moving with Hyperlink to video)
-   
 ### Intoduction
 The goal of this project is to build a **path planner** to safely navigate around a virtual highway with other cars. 
 
@@ -18,8 +15,9 @@ The path planner outputs a list of (x,y) global map coordinates that form a traj
 The planner implemented is able to drive safely at a speed slightly below the 50MPH limit for 10 miles without collisions. 
 
 ### Simulator.
-You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
+ The simulator sends car telemetry information (car's position and velocity) and sensor fusion information about the rest of the cars in the highway (Ex. car id, velocity, position). The communication between the simulator and the path planner is done using [WebSocket](https://en.wikipedia.org/wiki/WebSocket)
 
+ The simulator can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2) 
 
 ## Basic Build Instructions
 
