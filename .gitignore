@@ -1,2 +1,4 @@
 # ignore everything in these folders:
 videos/*
+README_original.md
+large_files.txt

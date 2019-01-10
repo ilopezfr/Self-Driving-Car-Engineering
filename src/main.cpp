@@ -337,9 +337,9 @@ int main() {
               }
             }
 
-            // Add 3 target points in the future to ptsc and ptsy vectors. 
+            // Add 3 target points in the future to ptsx and ptsy vectors. 
             // Use getXY to convert the frenet coordinates from car_s into cartesian.
-            // TODO: try different future points for 's' i.e: 30,60,90 or 50,100,150.
+            // TODO: try different future points for 's' i.e: 30,60,90 or 40,80,120.
             vector<double> next_wp0 = getXY(car_s + 50, next_d , map_waypoints_s, map_waypoints_x, map_waypoints_y);
             vector<double> next_wp1 = getXY(car_s + 100, next_d , map_waypoints_s, map_waypoints_x, map_waypoints_y);
             vector<double> next_wp2 = getXY(car_s + 150, next_d , map_waypoints_s, map_waypoints_x, map_waypoints_y);
@@ -395,7 +395,7 @@ int main() {
                 double x_ref = x_point;
                 double y_ref = y_point;
 
-                // Rotate and shift back to normal
+                // Rotate and shift back to global coordinates
                 x_point = x_ref*cos(ref_yaw) - y_ref*sin(ref_yaw);
                 y_point = x_ref*sin(ref_yaw) + y_ref*cos(ref_yaw);
 

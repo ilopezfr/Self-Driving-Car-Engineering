@@ -2,13 +2,20 @@
 Self-Driving Car Engineer Nanodegree Program - Term 3
    
 ![alt text][image1]
+Timelapse video of car driving 10 miles in the simulator 
+
 (screen shot or gift car moving with Hyperlink to video)
    
 ### Intoduction
-In this project the goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. The car's localization and sensor fusion data is provided, there is also a sparse map list of waypoints around the highway. The car's velocity is as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible. The car tries to avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car is able to make one complete loop around the 6946m highway.
+The goal of this project is to build a **path planner** to safely navigate around a virtual highway with other cars. 
 
-Implementation of a Path Planning to create smooth, safe paths for an autonomous car to drive along. 
-It communicates with Udacity's simulator through a WebSocket interface. The simulator receives as input the car localization, sensor fusion data (i.e.: position and velocity for other vehicles on the road) and current path plan. It sends back a new sequence of waypoints describing the updated path plan. The car should be able to drive safely and smoothly and optimal speed without exceeding the 50MPH limit. 
+The highway track has other vehicles, all going different speeds, but approximately obeying the 50 MPH speed limit.
+
+The car transmits its location, along with its sensor fusion data, which estimates the location of all the vehicles on the same side of the road.
+
+The path planner outputs a list of (x,y) global map coordinates that form a trajectory. Every 20 ms the car moves to the next point on the list. The car's new rotation becomes the line between the previous waypoint and the car's new location.
+
+The planner implemented is able to drive safely at a speed slightly below the 50MPH limit for 10 miles without collisions. 
 
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
@@ -28,20 +35,13 @@ You can download the Term3 Simulator which contains the Path Planning Project fr
 
 ✅ The code compiles correctly.
 
-I used an additional library in this project:
-
-- [spline](http://kluge.in-chemnitz.de/opensource/spline/) *(Cubic Spline interpolation implementation)*
-
-
 ### Valid Trajectories
 
 #### ✅ The car is able to drive at least 4.32 miles without incident.
 
-The car was able to drive 10 miles without incidents:
+![alt text][image2]
 
-![image2]
-(add screen shot with > 10miles)
-
+[Click here](https://www.youtube.com/watch?v=cckhao1qgP4) to watch the car driving smoothly its first 10 miles in the simulator without incidents. 
 
 #### ✅ The car drives according to the speed limit.
 
@@ -53,59 +53,47 @@ The car was able to drive 10 miles without incidents:
 
 The car remains in its lane except when it sees an opportunity to change lanes. It doesn't spend more than a 3 second when it has to move from one lane to another.
 
+
 #### ✅ The car is able to change lanes
 
 The car changes lanes when the there is a slow car in front of it and it's safe to change lanes (no other cars within a determined distance range).
 
 ### Reflection
 
-This project uses the provided code from the seed project. A lot of the concepts (splines, etc) were taken from the Q&A video that is provided by Udacity. I added additional comments to the code to improve the readability. The functionality is separated into 3 main parts: Prediction, Behaviour Planning and Trajectory Calculation.
+The code is divided in 3 main files: 
+* `main.cpp` which contains all the code. 
+* `spline.h` which contains the [spline](http://kluge.in-chemnitz.de/opensource/spline/) library to implement a spline interpolation function.
+* `path_planner.cpp` and `path_planner.hpp`: which contain the `PathPlanner` class and its functions. 
 
+In main.cpp, I start by pulling telemetry data from the simulator, containing my car localization, previous path given to the planner, and sensor fusion data with the information of all the other vehicles moving around my car in the road. [(235-250)](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/main.cpp#L235)
 
-#### 1. Prediction
+I take the coordinates of the last two points of the previous path and save them in `ptsx` and `ptsy` vectors, that will later be used as input to the spline function to generate the new trajectory. If this is the first time, I use the current position of the car as starting point. [(286-314)](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/main.cpp#L286).
 
-In the code, you can find this part between the lines 302 and 342.
+The path planner is divided in 3 steps: 
+1. **Prediction**: Analyze other cars positions and estimate their future trajectory.
+2. **Behavior Planning**: Determine what behavior my car should exhibit based on my predictions of the environment. Should I change lanes? Should I increase speed? Should I decrease speed?
+3. **Trajectory Generation**: Determine which trajectory is best for executing the chosen immediate behavior
 
-It deals with the telemetry and sensor fusion data and intents to reason about the environment. First, it iterates over the sensor data for each detected car and determines its lane (id). Then it calculates whether this particular car is ahead/left/right of our car with a distance less than 30 meters or not.
+#### Prediction & Behavior Planning
+I pass the last point of the previous path, after converting it to Frenet coordinates (d, s), together with the sensor fusion data to the Lane Planner. This function decides which decision my car should make in regards to its position--whether to go left, right, or stay in the same lane--and outputs the lateral distance "d" it must move in Frenet coordinates. 
 
-#### 2. Behaviour Planning
+[`lanePlanner`](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/planner.cpp#113) function encompasses both the Prediction and Behavior Planing steps, analyzing other cars present and future trajectories, and deciding which behavior should my car exhibit next. It uses three main functions: 
+* [`checkLane()`](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/planner.cpp#L6): calculates the lane a vehicle is in (center, left, right) based on the value of "d" I pass. It outputs the number of the lane, with 0 corresponding to Left, 1 to Center, and 2 to Right lane. 
+* [`nearestCar()`](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/planner.cpp#L23): calculates 
+* [`laneScore`](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/planner.cpp#L67): provides a score to each lane based on distance to other cars and their speed. Outputs the lane with the highest score.
 
-This part uses a Finite State Machine to determine the behavior. You can find the code here:
+#### Trajectory Generation
 
-- Declaration *(Lines 178-187)*
-- Transitions *(Lines 237-255)*
-- Trigger *(344-351)*
+With the output from `lanePlanner`, I calculate the `next_d` value and use it to generate the cartesian `(x, y)` coordinates for 3 target points in the future, that are added to the ptsx and ptsy vectors together with the last 2 points from the previous path that were added before. 
 
-It decides if the car changes its state to accelerate, decelerate or change lanes. 4 states are defined:
+I do a quick check on the position of the closest cars in my surrounding to make sure the desired lane won't be occupied when I try to move. If it will, then I reset my car to remain on the current lane in this cycle, and the speed to the vehicle being followed. [(328-338)](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/main.cpp#L328)
 
-![FSM](https://github.com/mkoehnke/CarND-Path-Planning-Project/raw/master/doc/fsm.png)
+I take the `ptsx` and `ptsy` vectors and shift and rotate the points to local car coordinates [( 358-364)](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/main.cpp#L358). Then I fit a spline [(370)](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/main.cpp#L370). 
 
-- **N** = Normal *(Initial State / Accelerate if necessary)*
-- **L** = Change To Left Lane
-- **R** = Change To Right Lane
-- **F** = Follow Vehicle *(Decelerate if necessary)*
-
-In addition, two triggers are used:
-
-- CarAhead *(A car directly in front of us has been detected)*
-- Clear *(No car directly in front of us has been detected)*
-
-
-Based on the prediction of the situation we are in, a trigger will be executed on the state machine. Depending on the current state and the conditions *(defined here: Lines 237-255)*, the car might transition from it's current state to another state. All states can reach all other states directly with the exeption of Left/Right for the reason of simplicity.
-
-
-#### 3. Trajectory Calculation
-
-In the code, you can find this part between the lines 354 and 469. The ideas and concepts are taken from the Q&A video. 
-
-The trajectories are calculated with the help of splines based on the speed and lane output from the behavior, car coordinates and past path points.
-
-In order to calcuate the splines, the last two points of the previous trajectory *(or the car position if there are no previous trajectory / lines 367-379)* are used in conjunction with three points at a far distance *(30, 60, 90 meters / lines 397-407)* to initialize the spline calculation *(lines 418-437)*. To make the work less complicated to the spline calculation based on those points, the coordinates are transformed (shift and rotation) to local car coordinates *(lines 409-416)*.
-
-To keep a continuous trajectory *(in addition to adding the last two points of the pass trajectory to the spline adjustment)*, the pass trajectory points are copied to the new trajectory. The rest of the points are calculated by evaluating the spline and transforming the output coordinates to not local coordinates.
-
+Using the spline curve calculated, I take the first 30m chunk (my `target_x` distance) and split it to generate the waypoints of my new trajectory. Each point represents the position of my car every 20ms, and for each I compare my velocity (`ref_vel`) to the `target_car_speed`, and accelerate or decelerate accordingly. I use each point velocity to calculate the `x` position of my car at the end of the 20ms interval, and use the spline to calculate my `y` coordinate. Finally, I shift and rotate these points back to global coordinates and save them in a `next_x_vals` and `next_y_vals` vectors. This new trajectory generate is fed to the simulator. [(374,408)](https://github.com/ilopezfr/CarND-Path-Planning-Project/blob/master/src/main.cpp#L374)
 
 
 [//]: # (Image References)
 
-[image1]: ./images/xxxx.png "Equations"
+[image1]: ./images/path_plan_3sec.gif "Sample Car Driving"
+[image2]: ./images/path_plan_10mile.gif "10mile"

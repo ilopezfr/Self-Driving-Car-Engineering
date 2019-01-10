@@ -62,7 +62,7 @@ vector<double> PathPlanner::nearestCar(double s, int lane, vector<vector<double>
   return{dist, velocity};   // (m, m/s)
 }
 
-// 3/4 Provides a Score to each lane based on distance to other casrs and their speed
+// 3/4 Provides a score to each lane based on distance to other cars and their speed
 // Outputs the lane with the highest score
 int PathPlanner::laneScore(double s, int lane, vector<vector<double>> sensor_fusion) {
   vector <double> scores = {0,0,0};
