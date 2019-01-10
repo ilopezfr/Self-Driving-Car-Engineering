@@ -31,28 +31,28 @@ The planner implemented is able to drive safely at a speed slightly below the 50
 
 #### Compilation
 
-✅ The code compiles correctly.
+✅ **The code compiles correctly.**
 
 #### Valid Trajectories
 
-✅ The car is able to drive at least 4.32 miles without incident.
+✅ **The car is able to drive at least 4.32 miles without incident.**
 
 ![alt text][image2]
 
 [Click here](https://www.youtube.com/watch?v=cckhao1qgP4) to watch the car driving smoothly its first 10 miles in the simulator without incidents. 
 
-✅ The car drives according to the speed limit.
+✅ **The car drives according to the speed limit.**
 
-✅ Max Acceleration and Jerk are not Exceeded.
+✅ **Max Acceleration and Jerk are not Exceeded.**
 
-✅ Car does not have collisions.
+✅ **Car does not have collisions.**
 
-✅ The car stays in its lane, except for the time between changing lanes.
+✅ **The car stays in its lane, except for the time between changing lanes.**
 
 The car remains in its lane except when it sees an opportunity to change lanes. It doesn't spend more than a 3 second when it has to move from one lane to another.
 
 
-✅ The car is able to change lanes
+✅ **The car is able to change lanes**
 
 The car changes lanes when the there is a slow car in front of it and it's safe to change lanes (no other cars within a determined distance range).
 
