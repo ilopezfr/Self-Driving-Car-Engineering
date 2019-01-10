@@ -19,7 +19,7 @@ The planner implemented is able to drive safely at a speed slightly below the 50
 
  The simulator can be downloaded [here](https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2) 
 
-## Basic Build Instructions
+### Basic Build Instructions
 
 1. Clone this repo.
 2. Make a build directory: `mkdir build && cd build`
@@ -27,32 +27,32 @@ The planner implemented is able to drive safely at a speed slightly below the 50
 4. Run it: `./path_planning`.
 
 
-## Rubic Points
+### Rubic Points
 
-### Compilation
+#### Compilation
 
 ✅ The code compiles correctly.
 
-### Valid Trajectories
+#### Valid Trajectories
 
-#### ✅ The car is able to drive at least 4.32 miles without incident.
+✅ The car is able to drive at least 4.32 miles without incident.
 
 ![alt text][image2]
 
 [Click here](https://www.youtube.com/watch?v=cckhao1qgP4) to watch the car driving smoothly its first 10 miles in the simulator without incidents. 
 
-#### ✅ The car drives according to the speed limit.
+✅ The car drives according to the speed limit.
 
-#### ✅ Max Acceleration and Jerk are not Exceeded.
+✅ Max Acceleration and Jerk are not Exceeded.
 
-#### ✅ Car does not have collisions.
+✅ Car does not have collisions.
 
-#### ✅ The car stays in its lane, except for the time between changing lanes.
+✅ The car stays in its lane, except for the time between changing lanes.
 
 The car remains in its lane except when it sees an opportunity to change lanes. It doesn't spend more than a 3 second when it has to move from one lane to another.
 
 
-#### ✅ The car is able to change lanes
+✅ The car is able to change lanes
 
 The car changes lanes when the there is a slow car in front of it and it's safe to change lanes (no other cars within a determined distance range).
 
