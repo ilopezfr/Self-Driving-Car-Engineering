@@ -7,6 +7,9 @@ Self-Driving Car Engineer Nanodegree Program - Term 3
 ### Intoduction
 In this project the goal is to safely navigate around a virtual highway with other traffic that is driving +-10 MPH of the 50 MPH speed limit. The car's localization and sensor fusion data is provided, there is also a sparse map list of waypoints around the highway. The car's velocity is as close as possible to the 50 MPH speed limit, which means passing slower traffic when possible. The car tries to avoid hitting other cars at all cost as well as driving inside of the marked road lanes at all times, unless going from one lane to another. The car is able to make one complete loop around the 6946m highway.
 
+Implementation of a Path Planning to create smooth, safe paths for an autonomous car to drive along. 
+It communicates with Udacity's simulator through a WebSocket interface. The simulator receives as input the car localization, sensor fusion data (i.e.: position and velocity for other vehicles on the road) and current path plan. It sends back a new sequence of waypoints describing the updated path plan. The car should be able to drive safely and smoothly and optimal speed without exceeding the 50MPH limit. 
+
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases).
 
