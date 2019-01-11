@@ -324,23 +324,22 @@ int main() {
             double lane = pp.curr_lane;
             double next_d = (lane * 4) + 2 + move;
           
-            // Double-check that the car has not incorrectly chosen a blocked lane
+            // Double-check that the car has not incorrectly chose a blocked lane
             int check_lane = pp.checkLane(next_d);
             vector<double> front_car = pp.nearestCar(frenet_vec[0], check_lane, sensor_fusion, true);
             vector<double> back_car = pp.nearestCar(frenet_vec[0], check_lane, sensor_fusion, false);
           
             // Reset to current lane and leading vehicle if not enough room
-            // TODO: check different values for avg score threshold
-            if (front_car[0] < 10 or back_car[0] < 10 or pp.avg_scores[check_lane] <= -3) {  
+            if (front_car[0] < 10 or back_car[0] < 10 or pp.avg_scores[check_lane] <= -5) {
               next_d = (lane * 4) + 2;
               if (check_lane != lane) {
                 pp.target_car_speed = pp.curr_lead_car_speed;
               }
             }
 
-            // Add 3 target points in the future to ptsc and ptsy vectors. 
+            // Add 3 target points in the future to ptsx and ptsy vectors. 
             // Use getXY to convert the frenet coordinates from car_s into cartesian.
-            // TODO: try different future points for 's' i.e: 30,60,90 or 50,100,150.
+            // TODO: try different future points for 's' i.e: 30,60,90 or 40,80,120.
             vector<double> next_wp0 = getXY(car_s + 50, next_d , map_waypoints_s, map_waypoints_x, map_waypoints_y);
             vector<double> next_wp1 = getXY(car_s + 100, next_d , map_waypoints_s, map_waypoints_x, map_waypoints_y);
             vector<double> next_wp2 = getXY(car_s + 150, next_d , map_waypoints_s, map_waypoints_x, map_waypoints_y);
@@ -396,7 +395,7 @@ int main() {
                 double x_ref = x_point;
                 double y_ref = y_point;
 
-                // Rotate and shift back to normal
+                // Rotate and shift back to global coordinates
                 x_point = x_ref*cos(ref_yaw) - y_ref*sin(ref_yaw);
                 y_point = x_ref*sin(ref_yaw) + y_ref*cos(ref_yaw);
 
