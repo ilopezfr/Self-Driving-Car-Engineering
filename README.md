@@ -202,10 +202,6 @@ Iteration # 1      |  Iteration # 5
 :-----------------:|:-------------------------:
 ![alt text][image3]|  ![alt text][image4]
 
-Raw Image          |  Labeled Image
-:-----------------:|:-------------------------:
-![alt text][image1]|  ![alt text][image2]
-
 On average, the model decreases loss over time.
 ![alt text][image5]
 
@@ -215,11 +211,6 @@ Other results:
 :--------------------:|:--------------------:
 ![alt text][image8]   | ![alt text][image9]
 ![alt text][image10]  | ![alt text][image11]
-
-![alt text][image6] |  ![alt text][image7]
-:------------------:|:-------------------------:
-![alt text][image8] |  ![alt text][image4]
-![alt text][image10]|  ![alt text][image4]
 
 
 [//]: # (Image References)
