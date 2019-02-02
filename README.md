@@ -23,9 +23,10 @@ Download the [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road
 The data provided comes in the form of a raw image taken from an onboard car camera, and its corresponding pixel-labeled image (road/ no-road).
 
 Here are examples of both images: 
+
 Raw Image          |  Labeled Image
-:-------------------------:|:-------------------------:
-![alt text][image1]  |  !![alt text][image2]
+:-----------------:|:-------------------------:
+![alt text][image1]|  ![alt text][image2]
 
 
 ### Solution
@@ -198,19 +199,19 @@ comparing the first iteration and the last one. On the first iteration, I used  
 
        Iteration #1        |      Iteration # 5
 :-------------------------:|:-------------------------:
-![alt text][image3]        |  !![alt text][image4]
+![alt text][image3]        |  ![alt text][image4]
 
 On average, the model decreases loss over time.
-!![alt text][image5]
+![alt text][image5]
 
 Other results:
 
 :-------------------------:|:-------------------------:
-![alt text][image6]        |  !![alt text][image7]
+![alt text][image6]        |  ![alt text][image7]
 :-------------------------:|:-------------------------:
-![alt text][image8]        |  !![alt text][image9]
+![alt text][image8]        |  ![alt text][image9]
 :-------------------------:|:-------------------------:
-![alt text][image10]       |  !![alt text][image11]
+![alt text][image10]       |  ![alt text][image11]
 
 
 
