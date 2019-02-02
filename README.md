@@ -6,7 +6,7 @@ This project consists on building a *Fully Convolutional Network (FCN)* to perfo
 The goal is to predict the label of the pixels of a road in images from [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php).
 
 ### Setup
-##### GPU
+#### GPU
 `main.py` will check to make sure you are using GPU - if you don't have a GPU on your system, you can use AWS or another cloud computing platform.
 ##### Frameworks and Packages
 Make sure you have the following is installed:
@@ -17,7 +17,7 @@ Make sure you have the following is installed:
 
 You may also need [Python Image Library (PIL)](https://pillow.readthedocs.io/) for SciPy's `imresize` function.
 
-##### Dataset
+#### Dataset
 Download the [Kitti Road dataset](http://www.cvlibs.net/datasets/kitti/eval_road.php) from [here](http://www.cvlibs.net/download.php?file=data_road.zip).  Extract the dataset in the `data` folder.  This will create the folder `data_road` with all the training a test images.
 
 The data provided comes in the form of a raw image taken from an onboard car camera, and its corresponding pixel-labeled image (road/ no-road).
@@ -197,22 +197,29 @@ I ran it a handful of time, tweaking some parameters until I achieved optimal re
 comparing the first iteration and the last one. On the first iteration, I used  a learning rate of 1e-2, epoch size of 20 and batch sie of 30. On the last iteration, I decreased the learning rate to 1e-4, increased the epoch size to 40 and decrease the batch size to 8. It can be appreciated how the segmentation in the last iteration contains more number of correctly predicted pixels of the 'road' class, which translates on higher performance as measured by Intersection over Union (IoU). 
 
 
-       Iteration #1        |      Iteration # 5
-:-------------------------:|:-------------------------:
-![alt text][image3]        |  ![alt text][image4]
+
+Iteration # 1      |  Iteration # 5
+:-----------------:|:-------------------------:
+![alt text][image3]|  ![alt text][image4]
+
+Raw Image          |  Labeled Image
+:-----------------:|:-------------------------:
+![alt text][image1]|  ![alt text][image2]
 
 On average, the model decreases loss over time.
 ![alt text][image5]
 
 Other results:
 
-:-------------------------:|:-------------------------:
-![alt text][image6]        |  ![alt text][image7]
-:-------------------------:|:-------------------------:
-![alt text][image8]        |  ![alt text][image9]
-:-------------------------:|:-------------------------:
-![alt text][image10]       |  ![alt text][image11]
+![alt text][image6]   |![alt text][image7]
+:--------------------:|:--------------------:
+![alt text][image8]   | ![alt text][image9]
+![alt text][image10]  | ![alt text][image11]
 
+![alt text][image6] |  ![alt text][image7]
+:------------------:|:-------------------------:
+![alt text][image8] |  ![alt text][image4]
+![alt text][image10]|  ![alt text][image4]
 
 
 [//]: # (Image References)
