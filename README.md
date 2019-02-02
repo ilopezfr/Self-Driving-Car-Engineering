@@ -1,4 +1,9 @@
-# Semantic Segmentation
+# Semantic Segmentation - Project Write-up
+
+[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
+
+by Ignacio Lopez-Francos
+
 ### Overview
 
 This project consists on building a *Fully Convolutional Network (FCN)* to perform Semantic Segmentation of image data. 
