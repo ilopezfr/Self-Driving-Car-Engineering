@@ -4,8 +4,9 @@ import subprocess
 
 #project = 'CarND-PID-Control-Project'
 #project = 'CarND-MPC-Project'
-project = 'CarND-Path-Planning-Project'
-#project = 'CarND-Semantic-Segmentation'
+#project = 'CarND-Path-Planning-Project'
+project = 'CarND-Semantic-Segmentation'
+# shopt -s extglob &&  mv !(CarND*|README-1.md|merging-to-master-repo.py) CarND-Semantic-Segmentation
 
 
 cmd1 = 'git remote add -f {st} git@github.com:ilopezfr/{st}.git'.format(st=project)
@@ -13,7 +14,7 @@ cmd2 = 'git fetch {st}  --tags'.format(st=project)
 cmd3 = 'git merge {st}/master --allow-unrelated-histories -m "merging {st} to Master repo"'.format(st=project)
 cmd4 = 'mkdir {st}'.format(st=project)
 # shopt -s extglob && 
-cmd5 = '''shopt -s extglob &&  mv !(CarND*|README-1.md|merging-to-master-repo.py) CarND-Path-Planning-Project'''.format(st=project)
+cmd5 = '''shopt -s extglob &&  mv !(CarND*|README-1.md|merging-to-master-repo.py) {st}'''.format(st=project)
 
 
 #shopt -s extglob &&  mv !(CarND*|README-1.md|merging-to-master-repo.py) CarND-PID-Control-Project
@@ -24,7 +25,7 @@ cmd7 = 'git add .'
 cmd8 = 'git commit -m "Move {st} files into subdir"'.format(st=project)
 cmd9 = 'git push origin master'
 
-commands = [cmd1, cmd2, cmd3, cmd4, cmd4]
+commands = [cmd1, cmd2, cmd3, cmd4, cmd4, cmd5]
 #commands = [cmd5]
 commands = [cmd6, cmd7, cmd8, cmd9]
 for cmd in commands:
