@@ -1,0 +1,6 @@
+# ignore everything in these folders:
+videos/*
+README_original.md
+large_files.txt
+src/planner_old.cpp
+src/main_old.cpp
