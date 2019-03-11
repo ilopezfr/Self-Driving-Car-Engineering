@@ -1,0 +1,2 @@
+model_checkpoint_path: "MyNeuralNet.ckpt-244"
+all_model_checkpoint_paths: "MyNeuralNet.ckpt-244"
