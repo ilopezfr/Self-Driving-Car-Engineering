@@ -4,20 +4,20 @@ import os
 
 
 bashCommand = '''
-# git remote add -f CarND-Unscented-Kalman-Filter-Project git@github.com:ilopezfr/CarND-Unscented-Kalman-Filter-Project.git
-# git fetch CarND-Unscented-Kalman-Filter-Project  --tags
-# git merge CarND-Unscented-Kalman-Filter-Project/master --allow-unrelated-histories -m "merging CarND-Unscented-Kalman-Filter-Project to Master repo" 
-# mkdir CarND-Unscented-Kalman-Filter-Project &&
+git remote add -f CarND-Kidnapped-Vehicle-Project git@github.com:ilopezfr/CarND-Kidnapped-Vehicle-Project.git
+git fetch CarND-Kidnapped-Vehicle-Project  --tags
+git merge CarND-Kidnapped-Vehicle-Project/master --allow-unrelated-histories -m "merging CarND-Kidnapped-Vehicle-Project to Master repo"
 
-# shopt -s extglob
-# mv !(CarND*|README-1.md) CarND-Unscented-Kalman-Filter-Project
+mkdir CarND-Kidnapped-Vehicle-Project
+shopt -s extglob
+mv !(CarND*|README-1.md|merging-to-master-repo.py) CarND-Kidnapped-Vehicle-Project
 
-mv .gitignore CarND-Unscented-Kalman-Filter-Project
+mv .gitignore CarND-Kidnapped-Vehicle-Project
 
 git add .
-git commit -m "Move CarND-Unscented-Kalman-Filter-Project files into subdir"
+git commit -m "Move CarND-Kidnapped-Vehicle-Project files into subdir"
 
-# git push origin master;
+git push origin master;
 '''
 
 os.system(bashCommand)
