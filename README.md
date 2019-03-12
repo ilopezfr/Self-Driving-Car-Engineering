@@ -25,7 +25,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
       </p>
     </th>
         <th><p align="center">
-           <a href="./CarND-P2-Traffic-Sign-Classifier"><img src="./CarND-P2-Traffic-Sign-Classifier/new_images_test/elephant_crossing_road.jpg" alt="Overview" width="60%" height="60%"></a>
+           <a href="./CarND-P2-Traffic-Sign-Classifier"><img src="./CarND-P2-Traffic-Sign-Classifier/new_images_test/pedestrian-crossing-phone.png" alt="Overview" width="60%" height="60%"></a>
            <br>P2: Traffic Signs Classifier
            <!-- 
            <br><a href="./project_2_traffic_sign_classifier" name="p2_code">(code)</a>
@@ -41,7 +41,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
         </p>
     </th>
         <th><p align="center">
-           <a href="./CarND-P4-Advanced-Lane-Finding"><img src="./CarND-P4-Advanced-Lane-Finding/img/overview.gif"                         alt="Overview" width="60%" height="60%"></a>
+           <a href="./CarND-P4-Advanced-Lane-Finding"><img src="./CarND-P4-Advanced-Lane-Finding/writeup_images/output2.png"                         alt="Overview" width="60%" height="60%"></a>
            <br>P4: Adv. Lane Finding
            <!--
            <br><a href="./project_4_advanced_lane_finding" name="p4_code">(code)</a>
