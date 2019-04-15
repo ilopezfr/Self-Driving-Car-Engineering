@@ -16,8 +16,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
 <table style="width:100%">
   <tr>
     <th>
-      <p align="center">
-      <ul class="flexMe">
+      <p align="center"><ul class="flexMe" style="width:100%">
            <a href="./CarND-P1-Detecting-Lane-Lines">
            <img src="./CarND-P1-Detecting-Lane-Lines/images/laneLines_thirdPass.jpg"
            width="60%" height="60%" object-fit="contain" ></a>
@@ -27,7 +26,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
            -->
       </ul></p>
     </th>
-        <th><p align="center"><ul class="flexMe">
+        <th><p align="center"><ul class="flexMe" style="width:100%">
            <a href="./CarND-P2-Traffic-Sign-Classifier"><img src="./CarND-P2-Traffic-Sign-Classifier/new_images_test/pedestrian-crossing-phone.png"  width="60%" height="60%" class="fill" ></a>
            <br>P2: Traffic Signs Classifier<br>
            <!-- 
@@ -35,7 +34,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
            -->
         </ul></p>
     </th>
-       <th><p align="center"><ul class="flexMe">
+       <th><p align="center"><ul class="flexMe" style="width:100%">
            <a href="./CarND-P3-Behavioral-Cloning"><img src="./CarND-P3-Behavioral-Cloning/images/recovery.gif" object-fit: cover; width="60%" height="60%"></a>
            <br>P3: Behavioral Cloning<br>
            <!-- 
@@ -43,8 +42,8 @@ This repo contains my entire work and source code committed for Udacity's Self-D
            -->
         </ul></p>
     </th>
-        <th><p align="center">
-        <ul class="flexMe">
+        <th><p align="center" >
+        <ul class="flexMe" style="width:100%">
            <a href="./CarND-P4-Advanced-Lane-Finding"><img src="./CarND-P4-Advanced-Lane-Finding/writeup_images/output2.png"                         object-fit: cover; width="60%" height="60%"></a>
            <br>P4: Adv. Lane Finding<br>
            <!--
@@ -55,7 +54,8 @@ This repo contains my entire work and source code committed for Udacity's Self-D
     
   </tr>
   <tr>
-    <th><p align="center"><ul class="flexMe">
+    <th><p align="center">
+    <ul class="flexMe">
            <a href="./CarND-P5-Vehicle-Detection"><img src="./CarND-P5-Vehicle-Detection/writeup_images/project_video.png" alt="Overview" width="60%" height="60%"></a>
            <br>P5: Vehicle Detection<br>
            <!--
