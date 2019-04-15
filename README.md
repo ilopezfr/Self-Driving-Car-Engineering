@@ -111,7 +111,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
 
 ## Capstone Project
 
-<table style="width:100%">
+<table align="center" style="width:100%">
   <tr>
     <th>
       <p align="center"><ul style="width:200">
