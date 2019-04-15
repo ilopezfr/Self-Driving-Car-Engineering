@@ -113,7 +113,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
 <table style="width:100%">
   <tr>
     <th>
-      <p align="center"><ul class="flexMe">
+      <p align="center"><ul style="width:200">
            <a href="https://github.com/ilopezfr/CarND-Capstone">
            <img src="./img-master/carnd-capstone-carla.gif"
            style="width:200"></a>
@@ -123,8 +123,8 @@ This repo contains my entire work and source code committed for Udacity's Self-D
            -->
       </ul></p>
     </th>
-        <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="https://github.com/ilopezfr/CarND-Capstone/tree/master/Traffic_Light_Detection"><img src="./img-master/traffic-lights-sim.png"  style="width:78%"></a>
+        <th><p align="center"><ul style="width:200">
+           <a href="https://github.com/ilopezfr/CarND-Capstone/tree/master/Traffic_Light_Detection"><img src="./img-master/traffic-lights-sim.png"  style="width:72%"></a>
            <br>Systems Integration<br>
            <!-- 
            <br><a href="./project_2_traffic_sign_classifier" name="p2_code">(code)</a>
