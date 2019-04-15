@@ -18,7 +18,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
     <th>
       <p align="center"><ul class="flexMe" style="width:200">
            <a href="./CarND-P01-Detecting-Lane-Lines">
-           <img src="./CarND-P01-Detecting-Lane-Lines/images/laneLines_thirdPass.jpg" style="width:100"></a>
+           <img src="./CarND-P01-Detecting-Lane-Lines/images/laneLines_thirdPass.jpg" width="250"></a>
            <br>P1: Basic Lane Finding<br>
            <!-- 
            <a href="./project_1_lane_finding_basic" name="p1_code">(code)</a> 
@@ -27,7 +27,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
     </th>
         <th><p align="center"><ul class="flexMe" style="width:200">
            <a href="./CarND-P02-Traffic-Sign-Classifier"><img src="./CarND-P02-Traffic-Sign-Classifier/new_images_test/pedestrian-crossing-phone.png" 
-           style="width:100" object-fit="contain" ></a>
+           width="250" ></a>
            <br>P2: Traffic Signs Classifier<br>
            <!-- 
            <br><a href="./project_2_traffic_sign_classifier" name="p2_code">(code)</a>
@@ -36,7 +36,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
     </th>
        <th><p align="center"><ul class="flexMe" style="width:200">
            <a href="./CarND-P03-Behavioral-Cloning"><img src="./CarND-P03-Behavioral-Cloning/images/recovery.gif" 
-           style="width:100"></a>
+           width="250"></a>
            <br>P3: Behavioral Cloning<br>
            <!-- 
            <br><a href="./project_3_behavioral_cloning" name="p3_code">(code)</a>
@@ -49,7 +49,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
       </th>
         <th><p align="center" >
         <ul class="flexMe" style="width:200">
-           <a href="./CarND-P04-Advanced-Lane-Finding"><img src="./CarND-P04-Advanced-Lane-Finding/writeup_images/output2.png"            style="width:100"></a>
+           <a href="./CarND-P04-Advanced-Lane-Finding"><img src="./CarND-P04-Advanced-Lane-Finding/writeup_images/output2.png"            width="250"></a>
            <br>P4: Adv. Lane Finding<br>
            <!--
            <br><a href="./project_4_advanced_lane_finding" name="p4_code">(code)</a>
@@ -58,7 +58,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
     <th>
     <p align="center">
     <ul class="flexMe" style="width:200">
-           <a href="./CarND-P05-Vehicle-Detection"><img src="./CarND-P05-Vehicle-Detection/writeup_images/project_video.png" alt="Overview" style="width:100"></a>
+           <a href="./CarND-P05-Vehicle-Detection"><img src="./CarND-P05-Vehicle-Detection/writeup_images/project_video.png" width="250"></a>
            <br>P5: Vehicle Detection<br>
            <!--
            <br><a href="./project_5_vehicle_detection" name="p5_code">(code)</a>
@@ -66,7 +66,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
         </ul></p>
     </th>
         <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="./CarND-P06-Extended-Kalman-Filter"><img src="./CarND-P06-Extended-Kalman-Filter/img/sim-test-1.png"                         alt="Overview" style="width:100"></a>
+           <a href="./CarND-P06-Extended-Kalman-Filter"><img src="./CarND-P06-Extended-Kalman-Filter/img/sim-test-1.png"                         width="250"></a>
            <br>P6: Extended Kalman Filter<br>
         </ul></p>
     </th>
@@ -74,34 +74,35 @@ This repo contains my entire work and source code committed for Udacity's Self-D
   </tr>
   <tr>
       <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="./CarND-P07-Unscented-Kalman-Filter"><img src="./CarND-P07-Unscented-Kalman-Filter/img/ukf.jpg"                         alt="Overview" style="width:100"></a>
+           <a href="./CarND-P07-Unscented-Kalman-Filter"><img src="./CarND-P07-Unscented-Kalman-Filter/img/ukf.jpg"                         width="250"></a>
            <br>P7: Unscented Kalman Filter<br>
         </ul></p>
     </th>
     <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="./CarND-P08-Kidnapped-Vehicle"><img src="./CarND-P08-Kidnapped-Vehicle/img/kidnapped-vehicle.png" alt="Overview" style="width:100"></a>
+           <a href="./CarND-P08-Kidnapped-Vehicle"><img src="./CarND-P08-Kidnapped-Vehicle/img/kidnapped-vehicle.png"
+            width="250"></a>
            <br>P8: Kidnapped Vehicle<br>
         </ul></p>
     </th>
     <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="./CarND-P09-PID-Control"><img src="./CarND-P09-PID-Control/images/PID_trim.gif" alt="Overview" style="width:100"></a>
+           <a href="./CarND-P09-PID-Control"><img src="./CarND-P09-PID-Control/images/PID_trim.gif" width="250"></a>
            <br>P9: PID Controller<br>
         </ul></p>
     </th>
   </tr>
   <tr>
     <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="./CarND-P10-MPC-Control"><img src="./CarND-P10-MPC-Control/images/MPC_chart.png" alt="Overview" style="width:100"></a>
+           <a href="./CarND-P10-MPC-Control"><img src="./CarND-P10-MPC-Control/images/MPC_chart.png" width="250"></a>
            <br>P10: MPC Controller<br>
         </ul></p>
     </th>
    <th><p align="center"><ul class="flexMe" style="width:200">
-           <a href="./CarND-P11-Path-Planning"><img src="./CarND-P11-Path-Planning/images/path_plan_3sec.gif" alt="Overview" style="width:100"></a>
+           <a href="./CarND-P11-Path-Planning"><img src="./CarND-P11-Path-Planning/images/path_plan_3sec.gif"  width="250"></a>
            <br>P11: Path Planning<br>
         </ul></p>
     </th>
     <th><p align="center"><ul class="flexMe" style="width:200">
-          <a href="./CarND-P12-Semantic-Segmentation"><img src="./CarND-P12-Semantic-Segmentation/images/uu_000021.png"                         alt="Overview" style="width:100"></a>
+          <a href="./CarND-P12-Semantic-Segmentation"><img src="./CarND-P12-Semantic-Segmentation/images/uu_000021.png"                         width="250"></a>
            <br>P12: Semantic Segmentation<br>
         </ul></p>
     </th>
@@ -116,19 +117,13 @@ This repo contains my entire work and source code committed for Udacity's Self-D
       <p align="center"><ul style="width:200">
            <a href="https://github.com/ilopezfr/CarND-Capstone">
            <img src="./img-master/carnd-capstone-carla.gif"
-           style="width:200"></a>
-           <br>Traffic Light Detection<br>
-           <!-- 
-           <a href="./project_1_lane_finding_basic" name="p1_code">(code)</a> 
-           -->
+           width="250"></a>
+           <br>Systems Integration<br>
       </ul></p>
     </th>
         <th><p align="center"><ul style="width:200">
-           <a href="https://github.com/ilopezfr/CarND-Capstone/tree/master/Traffic_Light_Detection"><img src="./img-master/traffic-lights-sim.png"  style="width:72%"></a>
-           <br>Systems Integration<br>
-           <!-- 
-           <br><a href="./project_2_traffic_sign_classifier" name="p2_code">(code)</a>
-           -->
+           <a href="https://github.com/ilopezfr/CarND-Capstone/tree/master/Traffic_Light_Detection"><img src="./img-master/traffic-lights-sim.png" width="250")></a>
+           <br>Traffic Light Detection<br>
         </ul></p>
     </th>
   </tr>
