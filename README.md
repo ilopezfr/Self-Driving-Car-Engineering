@@ -132,46 +132,48 @@ This repo contains my entire work and source code committed for Udacity's Self-D
 --- 
 ## Term 1
 
-#### [P1 - Detecting Lane Lines](CarND-P1-Detecting-Lane-Lines)
-- **Summary:** TODO
-- Tags
- 
-#### [P2 - Traffic Sign Classification]()
+#### [P1 - Detecting Lane Lines](CarND-P01-Detecting-Lane-Lines)
+- **Summary:** Implementation of a simple lane detector using OpenCV.  
 
+#### [P2 - Traffic Sign Classification](CarND-P02-Traffic-Sign-Classifier)
+- **Summary:** Train a classifier of the German Traffic Sign Dataset using CNNs. 
  
-#### [P3 - Behavioral Cloning]()
-
+#### [P3 - Behavioral Cloning](CarND-P03-Behavioral-Cloning)
+- **Summary:** Using CNNs with Keras to clone driving behavior of a vehicle driving in the simulator.
 
 ## Term 2
 
-#### [P4 - Advanced Lane Finding]()
-
+#### [P4 - Advanced Lane Finding](CarND-P04-Advanced-Lane-Finding)
+- **Summary:** Detect lane boundaries and determine numerical estimation of lane curvature and vehicle position. Display this in a video output.
  
-#### [P5 - Vehicle Detection]()
-
+#### [P5 - Vehicle Detection](CarND-P05-Vehicle-Detection)
+- **Summary:** Apply different image processing techinques and implement a sliding-window technique to search for vehicles in images, then detect and estimate the bounding boxes of vehicles in a video input. 
  
- #### [P6 - Extended Kalman Filter]()
+ #### [P6 - Extended Kalman Filter](CarND-P06-Extended-Kalman-Filter)
+- **Summary:** use a Extended Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements.
 
-
- #### [P7 - Unscented Kalman Filter]()
-
+ #### [P7 - Unscented Kalman Filter](CarND-P07-Unscented-Kalman-Filter)
+- **Summary:** utilize an Unscented Kalman Filter to estimate the state of a moving object of interest with noisy lidar and radar measurements. 
 
 ## Term 3
 
-#### [P8 - Kidnapped Vehicle]()
-
+#### [P8 - Kidnapped Vehicle](CarND-P08-Kidnapped-Vehicle)
+- **Summary:** Implement a 2 dimensional particle filter in C++ to localize a robot.
  
- #### [P9 - PID Control]()
-
+#### [P9 - PID Control](CarND-P10-MPC-Control)
+- **Summary:** Implement at PID Controller in C++ to be able to drive a car around a track in Unity's simulator. 
  
-#### [P10 - MPC Control]()
+#### [P10 - MPC Control](CarND-P10-MPC-Control)
+- **Summary:** Implementation of a Model Predictive Controller in C++.
 
+#### [P11 - Path Planning](CarND-P11-Path-Planning)
+- **Summary:**  Build a path planner to safely navigate around a virtual highway with other cars.
 
-#### [P11 - Path Planning]()
-
-
-#### [P12 - Road Semantic Segmentation]()
-
-
-
+#### [P12 - Road Semantic Segmentation](CarND-P12-Semantic-Segmentation)
+- **Summary:** Building a Fully Convolutional Network (FCN) to perform Semantic Segmentation of road image data.
  
+#### [Capstone Project - Systems Integration](https://github.com/ilopezfr/CarND-Capstone)
+- **Summary:** Design and implementation of the perception, planning, and control subsystems to enable a physical car ("Carla", Udacity's self-driving car) to drive around a test track using waypoint navigation, while avoiding obstacles and stopping at traffic lights. 
+- Tags: Perception, Control, Planning, ROS
+#### [Capstone Project - Traffic Light Detection](https://github.com/ilopezfr/CarND-Capstone/tree/master/Traffic_Light_Detection)
+- **Summary:** Implementation of the traffic light detector and classifier that is integrated in the self-driving car. It includes the Tensorflow model trained with 3 different datasets using Object Detection API. 
