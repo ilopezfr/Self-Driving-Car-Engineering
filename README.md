@@ -143,7 +143,7 @@ Focuses on applying machine learning to automotive tasks: deep learning, convolu
 - Using CNNs with Keras to clone driving behavior of a vehicle driving in the simulator.
 
 ## Term 2
-- Focuses on building the core robotic functions of an autonomous vehicle system: sensor fusion, localization, and control. This module was built in partnership with [**Mercedes Benz**](http://mbrdna.com/) and [**Uber ATG**](https://www.uber.com/info/atg/).
+Focuses on building the core robotic functions of an autonomous vehicle system: sensor fusion, localization, and control. This module was built in partnership with [**Mercedes Benz**](http://mbrdna.com/) and [**Uber ATG**](https://www.uber.com/info/atg/).
 
 #### [P4 - Advanced Lane Finding](CarND-P04-Advanced-Lane-Finding)
 - Detect lane boundaries and determine numerical estimation of lane curvature and vehicle position. Display this in a video output.
