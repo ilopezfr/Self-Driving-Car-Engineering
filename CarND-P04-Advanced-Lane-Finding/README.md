@@ -37,7 +37,7 @@ Here's the output of the lane finding pipeline:
 The code for this project can be found at [`./advanced-lane-project-pipeline.ipynb`](./advanced-lane-project-pipeline.ipynb). 
 
 
-###Camera Calibration
+### Camera Calibration
 ---
 To perform the camera calibration, I used the chessboard images located at `images/calibration` and run their grayscaled versions through `cv2.findChessboardCorners`. I make the assumptions that:
 - chessboard is fixed at z=0 plane.
@@ -50,14 +50,14 @@ The functions used in this step, `get_calibration()` and `undistort()` can be fo
 Below is a side-by-side of an undistorted image and its original.
 ![alt text][image1]
 
-###Pipeline (single images)
+### Pipeline (single images)
 ---
-####1. Camera distortion correction
+#### 1. Camera distortion correction
 Below is an example of a before and after distortion-corrected test image. I used `undistort` function--which can be found in utils-- with the parameters camera matrix (`mtx`) to transform 3D to 2D and the distrotion coefficients (`dist`) obtained during the camera calibration step. 
 
 ![alt text][image2]
 
-####2.Image Thresholding
+#### 2.Image Thresholding
 Then I used a combination of color and gradient thresholds to generate a binary image. I used the function `threshold()`, which can be found in `utils.py`.
 
 I used a combination of color and gradient thresholds to generate a binary image (thresholding steps are in function threshold_binary() in notebook cell 11.
@@ -76,7 +76,7 @@ To find lane lines and their curvature, I followed these steps:
 - Used a sliding window to iteratively move up the image finiding the lane lines until the top of the image. 
 - Fit a second order polynomial to find the lane line pixels. 
 
-####3. Perspective Transformation
+#### 3. Perspective Transformation
 
 The code for my perspective transform uses OpenCV's `getPerspectiveTransform()` and `warpPerspective()` functions and is based on a set of source and destination images points. The source and destination points chosen are the following: 
 
@@ -91,14 +91,14 @@ I verified that my perspective transform was working as expected by drawing the 
 
 ![alt text][image4]
 
-####4. Lane Detection
+#### 4. Lane Detection
 I added up the pixel values along each column in the image. In my thresholded binary image, pixels are either 0 or 1, so the two most prominent peaks in this histogram are good indicators of the x-position of the base of the lane lines. I then used that as a starting point for my search for lines with a margin of 100px, and considered 1/9th of the image starting from bottom.
 
 Once one of the first frames was processed, I used the last known line location to restrict the search for new lane pixels. The code to perform the lane detection  the same can be found in the `advanced-lane-project-pipeline.ipynb` notebook. These are the results:
 
 ![alt text][image5]
 
-####5. Measuring Curvature.
+#### 5. Measuring Curvature.
 
 The radious of curvature for each line is calculated using the following relationship between pixel coordinates and real world coordinates:
 
@@ -110,14 +110,14 @@ These are the steps followed:
 - Calculate the curvature as per the equation above.
 - Calculate the lane deviation from the center (between lane lines and assuming the camera is in the center of the car).
 
-####6. Plot back down onto the road.
+#### 6. Plot back down onto the road.
 
 Plotting the identified lanes back on the original image of the road, this is how it looks: 
 ![alt text][image7]
 
 ---
 
-###Pipeline (video)
+### Pipeline (video)
 ---
 
 Here's a [link to my video result](./project_video_out.mp4)
@@ -131,7 +131,7 @@ Some frames from the output video:
 
 ---
 
-###Discussion
+### Discussion
 ---
 The pipeline performs reasonably good on the project video, even with the limited parameter tuning performed on the thresholding and smoothing steps. However it does not that well on the challenge videos. The reason is that the creation of binary image doesn't work well detecting the lane under the varied brightness situations on the road surface encountered on these videos. 
 I could build a more robust pipeline if I try using some methods like:
