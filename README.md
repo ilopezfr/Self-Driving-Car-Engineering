@@ -131,7 +131,7 @@ This repo contains my entire work and source code committed for Udacity's Self-D
 
 --- 
 ## Term 1
-Focuses on applying machine learning to automotive tasks: deep learning, convolutional neural networks, support vector machines, and computer vision.
+Focuses on applying Deep Learning and Computer Vision to automotive tasks:
 
 #### [P1 - Detecting Lane Lines](CarND-P01-Detecting-Lane-Lines)
 - Implementation of a simple lane detector using OpenCV.  
@@ -142,15 +142,15 @@ Focuses on applying machine learning to automotive tasks: deep learning, convolu
 #### [P3 - Behavioral Cloning](CarND-P03-Behavioral-Cloning)
 - Using CNNs with Keras to clone driving behavior of a vehicle driving in the simulator.
 
-## Term 2
-Focuses on building the core robotic functions of an autonomous vehicle system: sensor fusion, localization, and control. This module was built in partnership with [**Mercedes Benz**](http://mbrdna.com/) and [**Uber ATG**](https://www.uber.com/info/atg/).
-
 #### [P4 - Advanced Lane Finding](CarND-P04-Advanced-Lane-Finding)
 - Detect lane boundaries and determine numerical estimation of lane curvature and vehicle position. Display this in a video output.
  
 #### [P5 - Vehicle Detection](CarND-P05-Vehicle-Detection)
 - Apply different image processing techinques and implement a sliding-window technique to search for vehicles in images, then detect and estimate the bounding boxes of vehicles in a video input. 
- 
+
+## Term 2
+Focuses on building the core robotic functions of an autonomous vehicle system: sensor fusion, localization, and control. This module was built in partnership with [**Mercedes Benz**](http://mbrdna.com/) and [**Uber ATG**](https://www.uber.com/info/atg/). 
+
  #### [P6 - Extended Kalman Filter](CarND-P06-Extended-Kalman-Filter)
 - Kalman filters are the key mathematical tool for fusing together data. Implement ane Extended Kalman Filter to combine measurements from multiple sensors (LiDAR and Radar) into a non-linear model and estimate the state of a moving object.
 
