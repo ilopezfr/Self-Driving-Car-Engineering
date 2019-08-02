@@ -2,18 +2,18 @@
 ---
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-The code and results to generate this report can be found on the notebook: advanced-lane-project-pipeline [add link]
+The goals of this project is to measure the curvature of the road, where my vehicle is on the road, and the location of other vehicles. 
 
-The goals / steps of this project are the following:
+The steps followed are:
 
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
+2. Apply a distortion correction to raw images.
+3. Use color transforms, gradients, etc., to create a thresholded binary image.
+4. Apply a perspective transform to rectify binary image ("birds-eye view").
+5. Detect lane pixels and fit to find the lane boundary.
+6. Determine the curvature of the lane and vehicle position with respect to center.
+7. Warp the detected lane boundaries back onto the original image.
+8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 [//]: # (Image References)
 
@@ -50,8 +50,10 @@ The functions used in this step, `get_calibration()` and `undistort()` can be fo
 Below is a side-by-side of an undistorted image and its original.
 ![alt text][image1]
 
-### Pipeline (single images)
----
+
+## Pipeline (single images)
+
+
 #### 1. Camera distortion correction
 Below is an example of a before and after distortion-corrected test image. I used `undistort` function--which can be found in utils-- with the parameters camera matrix (`mtx`) to transform 3D to 2D and the distrotion coefficients (`dist`) obtained during the camera calibration step. 
 
@@ -115,13 +117,14 @@ These are the steps followed:
 Plotting the identified lanes back on the original image of the road, this is how it looks: 
 ![alt text][image7]
 
----
 
-### Pipeline (video)
----
 
-Here's a [link to my video result](./project_video_out.mp4)
-For implemetation details check [`./utils/pipeline.py`](./utils/pipeline.py) and [`./utils/line.py`](./utils/line.py).
+## Pipeline (video)
+
+Here's a [link to my video result](./video/project_video_out.mp4)
+
+
+For implemetation details check" [`./utils/pipeline.py`](./utils/pipeline.py) and [`./utils/line.py`](./utils/line.py).
 
 Some frames from the output video:
 ![alt text][image8]
@@ -129,10 +132,11 @@ Some frames from the output video:
 ![alt text][image10]
 ![alt text][image11]
 
----
 
-### Discussion
----
+
+## Discussion
+
+
 The pipeline performs reasonably good on the project video, even with the limited parameter tuning performed on the thresholding and smoothing steps. However it does not that well on the challenge videos. The reason is that the creation of binary image doesn't work well detecting the lane under the varied brightness situations on the road surface encountered on these videos. 
 I could build a more robust pipeline if I try using some methods like:
 - contrast-limited adaptive histogram equalization (CLAHE) to account for the varied brightness conditions.
