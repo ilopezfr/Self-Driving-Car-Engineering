@@ -1,14 +1,16 @@
 # Vehicle Detection Project
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-The goals / steps of this project are the following:
+The goal of this project is to develop a vehicle detection and tracking method for a video stream. 
 
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a Linear SVM classifier
-* Apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector.
-* Normalize your features and randomize a selection for training and testing.
-* Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
+Steps followed:
+
+1. Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a Linear SVM classifier
+2. Apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector.
+3. Normalize your features and randomize a selection for training and testing.
+4. Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
+5. Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
+6. Estimate a bounding box for vehicles detected.
 
 ---
 [//]: # (Image References)
@@ -33,7 +35,7 @@ The pipeline for this project can be found on the accompanying iPython notebook 
 
 
 ### 1. Feature Extraction - Histogram of Oriented Gradients (HOG)
----
+
 
 I defined the `ImgFeatExtract` class. This class is instantiated with a list of configuration options for feature extraction. 
 The function `feat_extract` does the hard work and performs the following steps:
@@ -83,7 +85,7 @@ Without tuning the hyper-parameters of LinearSVM and using the default ones, I a
 In this step is where we detect the vehicles by applying sliding window search. This algorithm is implemented in 2-steps: 
 
 1. Pyramid search or Scale search: We slide the windows across the image at different scales. This is good to detect objects in varying sizes, like cars driving on the road that are at different distances from me.  This method is applied using `get_sliding_windows` in  `process` of class ObjectDetector. 
-This method in-turn calls method `get_sliding_windows` passing it a different scale (or image size) on each iteration. get_sliding_windows returns an array of window points (rectangles). The windows are slid across the image with an amount of overlap that is configured--The pipeline I used 80% of overlap. Also the pipeline ignores the top of the image that doesn't corresponds with the road. 
+This method in-turn calls method `get_sliding_windows` passing it a different scale (or image size) on each iteration. 1get_sliding_windows1 returns an array of window points (rectangles). The windows are slid across the image with an amount of overlap that is configured--In the pipeline I used 80% of overlap. Also the pipeline ignores the top of the image that doesn't corresponds with the road. 
 2. Slide the windows. Here's we pass a list of windows previously computed to the `find_objects()` function and loop thought all them. Each one of them is run through the feature extraction and classificaiton pipeline. Finally, it returns a list with the prediction hits.
 
 These are the results applying the sliding window search method to the test images.
@@ -100,8 +102,7 @@ This shows the sliding windows that had positive detections.
 4. Heatmap converted to bounding boxes. 
 
 ### 4. Video Implementation of the pipeline
-Here's a [link to my video result](./output_images/project_video_output.mp4)
-It can also be watched on this [link to my Youtube channel](https://youtu.be/QWNvcGqb5WA)
+Here's a [link to my video result.](https://youtu.be/QWNvcGqb5WA)
 
 Some frames extracted from the video:
 

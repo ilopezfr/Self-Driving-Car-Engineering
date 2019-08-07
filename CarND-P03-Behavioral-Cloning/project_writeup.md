@@ -1,37 +1,30 @@
-#**Behavioral Cloning Project**
+# **Behavioral Cloning Project**
 
 This is a short walkthrough of the approach used to solve the problem of Udacity's "Behavioral Cloning".
 
 The goal of the project is to use the simulator to drive the car around a track, collect data and train it on neural network so that the car can eventually predict the angle to steer by itself, and complete a drive on the simulator without crashing.
 
 Steps of this project:
-- Data Collection using the simulator
-- Preprocessing the data
-- Build Neural Network
-- Train and validate the model on the GPU
-- Test the model on the autonomous model using the simulator.
-- Iterate.
+1. Data Collection using the simulator
+2. Preprocessing the data
+3. Build Neural Network
+4. Train and validate the model on the GPU
+5. Test the model on the autonomous model using the simulator.
+6. Iterate.
 
 The model.py file contains the code for training and saving the convolution neural network. The file shows the pipeline I used for training and validating the model, and it contains comments to explain how the code works.
 
 The final model was trained on AWS g2.2xlarge EC2 instance for 16 epochs. 
 
 Using Udacity's provided simulator and my drive.py file, the car can be driven autonomously around the track by executing:
-`ssh python drive.py model.h5 `
-
-[//]: # (Image References)
-
-[image1]: ./images/camera_images.png
-[image2]: ./images/cropped_image.png
-[image3]: ./images/dirt_curve.gif
-[image4]: ./images/recovery.gif
-[image5]: ./images/model_loss.png
-[image6]: ./images/steering_angle1.png
-[image7]: ./images/steering_angle2.png
-[image8]: ./images/autonomous_drive_snap.png
+```console
+ssh python drive.py model.h5 
+```
 
 
-## Data Collection
+
+
+## 1. Data Collection
 I followed an iterative approach, starting with the collecting minimum data--one lap driving, in this case--, building a simple network, testing it on the simulator, measuring the results and then iterating. 
 
 This way I was able to visually appreciate what were the situations in which my network wasn't performing well so that I could collect more training data that would teach the network how to behave properly on the situations where it previously failed. 
@@ -53,11 +46,11 @@ Taking this into account, and simulating the type of situations were the car did
 	- Every sharp curve.
 	- Sharp curve where there's no road delimiter but dirt. See below:
 
-    ![alt text][image3]
+![alt text][image3]
 
 In addition, I augmented the data during the training phase, which is explained in the next section. 
 
-## Preprocessing
+## 2. Preprocessing
 
 Apart from the data collected, I used data augmentation to generate additional data:
 - I applied a correction factor of 0.13 to both Left and Right images so that I could use them as Center images and train with them. This increased my dataset x3. 
@@ -65,7 +58,7 @@ Apart from the data collected, I used data augmentation to generate additional d
 - I split my dataset into 80% for training and 20% for validation/testing.
 - I cropped the images 70px from the top and 25px from the bottom portions of the images, as they don't contain useful information.
 
-## Model Architecture
+## 3. Model Architecture
 
 I used a model based on [Nvidia's paper](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). To reduce overfitting, I have added several dropout layers to the network.
 
@@ -73,7 +66,7 @@ I used a model based on [Nvidia's paper](http://images.nvidia.com/content/tegra/
 
 The network consists of five convolutional layers, followed by three fully connected layers. It includes RELU layers to introduce nonlinearity. The images are cropped and the data is normalized using a Keras lambda layer. I have added Dropout Layers before and after the fully connected layers to prevent overfitting.
 
-```
+```console
 ____________________
 Layer (type)                     Output Shape          Param #     Connected to
 ====================================================================================================
@@ -113,8 +106,8 @@ ________________________________________________________________________________
 ```
 
 
-## Training Strategy and Solution Design Approach:
-**Step 1** 
+## 4. Training Strategy and Solution Design Approach:
+### Step 1
 I drove one lap on the simulator and tested on the data collected a simple Neural Network with just a Lambda layer that normalizes the images (from 0, 255 to 0, 1), a Flatten layer and a Dense layer, and test it on the simulator. This was just to understand how the process works.
 
 During the training of the network, the validation loss was going up and down for every epoch, which may indicated that we were overfitting. I decreased the number of epochs from 10 to 5 and it seemed to fix that. However, the loss seem still a bit high. 
@@ -122,7 +115,7 @@ During the training of the network, the validation loss was going up and down fo
 When testing it on the simulator, the car crashed after 10 seconds. This didn't surprise me, as I was using very little train data and a simple network.
 
 
-**Step 2** 
+### Step 2
 I improved the architecture by replicating LeNet network:
 - 1 Lambda Layer that normalizes the images
 - 1 Conv Layer with 6 5x5 filters and a Relu Activation
@@ -137,7 +130,7 @@ I chose Adam optimizer, as is the to-go optimizer for these types of problems, a
 I trained the model, which seemed to have a smaller loss and not overfitting. Then added the model in the simulator but it still crashed in a few seconds. I noticed that the car tended to steer to the left and eventually crash.
 This was because the track is not clock-wise and the dataset I was using only showed the car pooling to the left.
 
-**Step 3** 
+### Step 3
 In order to fix this issue, I applied some of the suggestions from the class:
 - Augment the data by driving and recording the car going the other way around the track (clockwise).
 - Augment the data by flipping the images.
@@ -146,7 +139,7 @@ After adding the code on the model to mirror the images, I was able to augment t
 
 I trained and tested it again on the simulator and the car was able to drive a bit further for ~20 seconds after crashing. I noticed thought that when the car steered to either left or right, it didn't know how to come back.
 
-**Step 4**
+### Step 4
 To fix this, I took a few approaches:
 - Add recovery data: I generated more train data by recording myself driving close to the side of the road and quickly turning back on to the middle of the road. I collected some data using this strategy while driving on particular parts of the track like: entering and exiting a sharp curve, and crossing the bridge.
 ![alt text][image4] 
@@ -154,14 +147,14 @@ To fix this, I took a few approaches:
 - Cropping the images: removed 70px from the top and 25px from the bottom portions of the images, as they don't contain useful information. This way, the model could train faster and focus on the portion of the image that is relevant for predicting a steering angle. To do so, I added Cropping2D Layer to the network. Adding this to the network instead of outside the model is more efficient as it takes advantage of the parallelization on the GPU. 
 ![alt text][image2]
 
-**Step 5**
+### Step 5
 Now it was time to improved the network to make it more robust.
 I took the network architecture used on NVIDIA's paper and adopted to my data.
 
 At this point, the model improved noticeably and was able to drive autonomously an entire lap without crashing. On the train phase, both the train loss and validation, although the gap between both had increased. Clearly a sign of overfitting. To confirm this on the simulator, driving on autonomous mode the car was still zigzagging a little bit n some areas where it was supposed to drive straight.
 ![alt text][image5]
 
-**Step 6**
+### Step 6
 To prevent the overfitting, I tested 2 approaches:
 - I tuned my Adam optimizer with a small learning rate 0.001. Using a small learning rate allows me to get a generalized result while increasing the number of epochs, from 5 to 20.
 - I added Dropout layers to my network. I tested both SpatialDropout and Dropout and different configurations of the layers. 
@@ -173,3 +166,15 @@ I ran a few iterations adding and removing dropout layers and tuning the values 
 Here's the video of the car driving on autonomous mode (Click on the image). Enjoy! 
 
 [![alt text][image8]](https://youtu.be/08e3MYlLAtw)
+
+
+[//]: # (Image References)
+
+[image1]: ./images/camera_images.png
+[image2]: ./images/cropped_image.png
+[image3]: ./images/dirt_curve.gif
+[image4]: ./images/recovery.gif
+[image5]: ./images/model_loss.png
+[image6]: ./images/steering_angle_1.png
+[image7]: ./images/steering_angle_2.png
+[image8]: ./images/autonomous_drive_snap.png
