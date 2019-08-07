@@ -140,10 +140,10 @@ Focuses on applying Deep Learning and Computer Vision to automotive tasks:
 - Train a classifier of the German Traffic Sign Dataset using CNNs. 
  
 #### [P3 - Behavioral Cloning](CarND-P03-Behavioral-Cloning)
-- Using CNNs with Keras to clone driving behavior of a vehicle driving in the simulator.
+- Using CNNs with Keras to clone driving behavior of a vehicle driving in the simulator. The project covers data collection strategies from the simulator, data preprocessing, and implementation of an end-to-end CNN that maps pixels from a single camera image directly to steering commands. 
 
 #### [P4 - Advanced Lane Finding](CarND-P04-Advanced-Lane-Finding)
-- Detect lane boundaries and determine numerical estimation of lane curvature and vehicle position. Display this in a video output.
+- Detect lane boundaries and determine numerical estimation of lane curvature and vehicle position. Display this in a video output. The project covers how to perform camera calibration, color and gradient thresholds, as well as perspective transform and sliding windows to identify lane lines.
  
 #### [P5 - Vehicle Detection](CarND-P05-Vehicle-Detection)
 - Apply different image processing techinques and implement a sliding-window technique to search for vehicles in images, then detect and estimate the bounding boxes of vehicles in a video input. 
